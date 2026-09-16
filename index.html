@@ -62,7 +62,7 @@
       animation: goldShimmer 4s linear infinite;
     }
 
-    /* 3D Realistic Card Depth Effects */
+    /* 3D Realistic Card Depth Effects (Mobile Touch + Desktop) */
     .card-3d-bevel {
       box-shadow: 
         0 1px 2px rgba(0, 0, 0, 0.04),
@@ -70,37 +70,88 @@
         0 20px 32px -8px rgba(42, 0, 6, 0.06),
         inset 0 1px 1px rgba(255, 255, 255, 0.9),
         inset 0 -1px 1px rgba(212, 175, 55, 0.2);
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    @media (hover: hover) {
-      .card-3d-bevel:hover {
-        transform: translateY(-8px) scale(1.018) rotateX(1.5deg);
-        box-shadow: 
-          0 2px 4px rgba(0, 0, 0, 0.04),
-          0 18px 36px -6px rgba(42, 0, 6, 0.16),
-          0 30px 48px -10px rgba(115, 92, 0, 0.18),
-          inset 0 1px 2px rgba(255, 255, 255, 1),
-          inset 0 -1px 2px rgba(212, 175, 55, 0.35);
-      }
+    .card-3d-bevel:hover, .card-3d-bevel:active, .card-3d-bevel.touch-active {
+      transform: translateY(-6px) scale(1.018) rotateX(1.5deg);
+      box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.06),
+        0 16px 32px -4px rgba(42, 0, 6, 0.16),
+        0 28px 44px -8px rgba(115, 92, 0, 0.18),
+        0 0 20px rgba(254, 214, 91, 0.25),
+        inset 0 1px 2px rgba(255, 255, 255, 1),
+        inset 0 -1px 2px rgba(212, 175, 55, 0.35);
     }
 
-    /* Category Arch 3D Depth */
+    /* Category Arch 3D Depth (Mobile Touch + Desktop) */
     .arch-card-3d {
       box-shadow: 
         0 4px 14px rgba(42, 0, 6, 0.06),
         0 10px 24px -6px rgba(115, 92, 0, 0.1),
         inset 0 1px 1px rgba(255, 255, 255, 0.85);
-      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    @media (hover: hover) {
-      .arch-card-3d:hover {
-        transform: translateY(-7px) scale(1.03) rotateX(2deg);
-        box-shadow: 
-          0 12px 28px -4px rgba(42, 0, 6, 0.15),
-          0 20px 32px -6px rgba(115, 92, 0, 0.2),
-          0 0 20px rgba(254, 214, 91, 0.3),
-          inset 0 1px 2px rgba(255, 255, 255, 1);
-      }
+    .arch-card-3d:hover, .arch-card-3d:active, .arch-card-3d.touch-active {
+      transform: translateY(-5px) scale(1.04) rotateX(2deg);
+      box-shadow: 
+        0 10px 24px -3px rgba(42, 0, 6, 0.16),
+        0 18px 28px -5px rgba(115, 92, 0, 0.22),
+        0 0 22px rgba(254, 214, 91, 0.35),
+        inset 0 1px 2px rgba(255, 255, 255, 1);
+    }
+
+    /* Mobile Alternating Floating Animation for Arches */
+    @keyframes archFloatUp {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    @keyframes archFloatDown {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(3.5px); }
+    }
+    .arch-float-odd { animation: archFloatUp 5s ease-in-out infinite; }
+    .arch-float-even { animation: archFloatDown 5.5s ease-in-out infinite 0.5s; }
+
+    /* Scroll-Driven 3D Perspective Reveal */
+    .reveal-3d {
+      opacity: 0;
+      transform: perspective(900px) translateY(36px) rotateX(6deg) scale(0.97);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal-3d.is-revealed {
+      opacity: 1;
+      transform: perspective(900px) translateY(0) rotateX(0deg) scale(1);
+    }
+
+    /* Gold Sheen Sweep Animation */
+    @keyframes sheenSweep {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      20%, 100% { transform: translateX(200%) rotate(45deg); }
+    }
+    .sheen-overlay {
+      position: relative;
+      overflow: hidden;
+    }
+    .sheen-overlay::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(254, 214, 91, 0.18) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: sheenSweep 6s infinite ease-in-out;
+      pointer-events: none;
     }
 
     /* Embossed 3D Buttons */
@@ -391,6 +442,8 @@
 
       <!-- REGAL EDITORIAL HERO WITH 3D DEPTH & MOBILE OPTIMIZATION -->
       <section class="relative w-full overflow-hidden bg-primary text-on-primary perspective-container">
+        <!-- Interactive 3D Ambient Gold Dust Canvas -->
+        <canvas id="heroGoldParticles" class="absolute inset-0 pointer-events-none z-10 w-full h-full"></canvas>
         <!-- Floating Luxury Gold Starlight Dust -->
         <div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
           <div class="absolute top-16 left-[15%] w-2 h-2 rounded-full bg-secondary-fixed animate-twinkle" style="box-shadow: 0 0 12px #ffe088;"></div>
@@ -398,7 +451,7 @@
           <div class="absolute bottom-28 left-[35%] w-2.5 h-2.5 rounded-full bg-amber-200 animate-twinkle" style="animation-delay: 2.1s; box-shadow: 0 0 14px #ffe088;"></div>
           <div class="absolute top-1/2 right-[10%] w-2 h-2 rounded-full bg-secondary-fixed animate-twinkle" style="animation-delay: 0.7s; box-shadow: 0 0 10px #ffe088;"></div>
         </div>
-        <div class="relative min-h-[500px] sm:min-h-[640px] lg:min-h-[720px] flex items-center">
+        <div class="relative min-h-[460px] sm:min-h-[640px] lg:min-h-[720px] flex items-center">
           <!-- Background Image with Scrim & Deep 3D Vignette -->
           <div class="absolute inset-0 bg-cover bg-center opacity-45 transform scale-105 transition-transform duration-1000 ease-out" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDpM-T35eLUCDda-Ga7xMkwyHK-eb_o35J-we8yl8TKsPjybNzd9Sj1Dt9tg1xCig8ZBYJZPoM4L27TT91ZhIAOtiLdQA3tDpEvZh5hdrxDl4KDpk-cc_NoseNVXIDnemUuq2D_sQYMQFMs0qmPrfnky6fjIc8csNUAby2JOj5VsUDnhNo2PeGFhQdEicfFBImQ072DNsYX-ocN6KNtWigfEDWY2xS3KlKaTnkLbiXcUI4uqc0eKoRq');"></div>
           <!-- Deep Layered Gradient Overlays for Specular Lighting -->
@@ -470,18 +523,18 @@
         </div>
       </section>
 
-      <!-- SHOP BY CATEGORY (Optimized: 4 Columns on Mobile, 8 on Desktop) -->
-      <section class="max-w-7xl mx-auto px-3 sm:px-gutter py-8 sm:py-space-xl w-full perspective-container">
-        <div class="flex flex-col items-center text-center mb-6 sm:mb-space-xl">
+      <!-- SHOP BY CATEGORY (Optimized: 4 Columns on Mobile, 8 on Desktop with 3D Arch Float) -->
+      <section class="max-w-7xl mx-auto px-3 sm:px-gutter py-6 sm:py-space-xl w-full perspective-container reveal-3d">
+        <div class="flex flex-col items-center text-center mb-5 sm:mb-space-xl">
           <span class="font-label-caps-sm text-[10px] sm:text-label-caps-sm text-secondary uppercase tracking-widest mb-1 font-bold">Exquisite Royal Karigari</span>
           <h2 class="text-2xl sm:text-headline-lg font-serif text-primary">Shop by Category</h2>
           <div class="w-12 sm:w-16 h-0.5 bg-gradient-to-r from-transparent via-secondary-container to-transparent mt-1.5 rounded-full"></div>
         </div>
 
-        <!-- 4-Col Grid on Mobile, 8-Col on Desktop -->
+        <!-- 4-Col Grid on Mobile, 8-Col on Desktop with 3D Float Animation -->
         <div class="grid grid-cols-4 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-space-md preserve-3d">
           <!-- Item 1: Necklaces -->
-          <div onclick="filterCategory('necklaces')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform">
+          <div onclick="filterCategory('necklaces')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform arch-float-odd">
             <div class="w-full aspect-[4/5] rounded-t-full rounded-b-lg overflow-hidden bg-surface-container p-1 arch-card-3d border border-outline-variant/40">
               <img class="w-full h-full object-cover rounded-t-full rounded-b group-hover:scale-105 transition-transform duration-500 shadow-inner" alt="Necklaces" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_5M3qjQwIcmxY0GPX3J3_Bo0r2jFF5HWSEUSmgZ19jQ8H7Xomp38R5G7ic5LWGdxffM5sCac8fe_IWi6h1pHDGq3WdCSNUybN84tucMiuSDmMIxEPaFkVGuMblwiAH9ASHNLZ0o1rIRkr44A1X5w4Z8xU-PzJM_pZaTlTrSVIcEmWAO83HFiTjtnQlocg_DPNlVDAIGxP65eLNHee097UbEomFYmMc1TtZEimzqtLlBwA9rpXB6-X">
             </div>
@@ -490,7 +543,7 @@
           </div>
 
           <!-- Item 2: Rings & Solitaires -->
-          <div onclick="filterCategory('rings')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform">
+          <div onclick="filterCategory('rings')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform arch-float-even">
             <div class="w-full aspect-[4/5] rounded-t-full rounded-b-lg overflow-hidden bg-surface-container p-1 arch-card-3d border border-outline-variant/40">
               <img class="w-full h-full object-cover rounded-t-full rounded-b group-hover:scale-105 transition-transform duration-500 shadow-inner" alt="Rings" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV86CW1U2xo3LVuUy303e_97ucmP2iYiUE3qbOX3MNo_mdmMAl1AYfGzKdjJJAEfyyU347c1QDeoMs4OHN4ZKLsxJMtkHk3GQip71U9fBA4Pt9RoVDNFlKnyQPX8hsUoSRpZSuB7x9__5vtaT7JExWFhdtpWlIwejA4wAO6BelRel6BnTGN4M15oLG4nA5xTmcezuEP_a2a3gXOMePMtCVetjI012ElB5VmDsGSQatYXSx2aMi1uC9">
             </div>
@@ -499,7 +552,7 @@
           </div>
 
           <!-- Item 3: Earrings & Jhumkas -->
-          <div onclick="filterCategory('earrings')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform">
+          <div onclick="filterCategory('earrings')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform arch-float-odd">
             <div class="w-full aspect-[4/5] rounded-t-full rounded-b-lg overflow-hidden bg-surface-container p-1 arch-card-3d border border-outline-variant/40">
               <img class="w-full h-full object-cover rounded-t-full rounded-b group-hover:scale-105 transition-transform duration-500 shadow-inner" alt="Earrings" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQf3G4w9oHoRjgvtVZJx_asNLT80lBICDEJgji7PexMHjSDDF92Z30HuHKBR3juzZhzMH4UToB7S0fS1MSHyOD7mC5_vrwtDA75J0Atncy9i0NELu3WiuPaLAq6J57LFyuNAQuMARg-e6pIIZa5tluJj24tJ1F2T-TpQK-4iXkxhR_mZNe5MbTUA83KwTq28oKKKOkE5OQgqnKuk8Px-CPJVmaHMystL7VIRUimid65QSeuM2a2mL_">
             </div>
@@ -508,7 +561,7 @@
           </div>
 
           <!-- Item 4: Bangles & Kadas -->
-          <div onclick="filterCategory('bangles')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform">
+          <div onclick="filterCategory('bangles')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform arch-float-even">
             <div class="w-full aspect-[4/5] rounded-t-full rounded-b-lg overflow-hidden bg-surface-container p-1 arch-card-3d border border-outline-variant/40">
               <img class="w-full h-full object-cover rounded-t-full rounded-b group-hover:scale-105 transition-transform duration-500 shadow-inner" alt="Bangles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOQoCACMEaMNTUEmqlEleOOZ2e3VGm6W4dvtcDG6MXUrqdIn8nb-BD-hy3rQB-OC1vlyVVXssBbdAw66AyopdMKPmHbp0UZMuTliqfg_R7VRrSCiRR8wDOmhqGZoXs9VQEe_Ctl6w95faISTIEf6512c_yonHquvggpWkFdhgfXCfs-0gRbcfgbQjv47vPeW8H-Fs0ivOgJ11-5OG_Y4USEDaYi7eQeBm5WvPSrLI2bB3ZL66oZllb">
             </div>
@@ -517,7 +570,7 @@
           </div>
 
           <!-- Item 5: Mangalsutras -->
-          <div onclick="filterCategory('mangalsutra')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform">
+          <div onclick="filterCategory('mangalsutra')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform arch-float-odd">
             <div class="w-full aspect-[4/5] rounded-t-full rounded-b-lg overflow-hidden bg-surface-container p-1 arch-card-3d border border-outline-variant/40">
               <img class="w-full h-full object-cover rounded-t-full rounded-b group-hover:scale-105 transition-transform duration-500 shadow-inner" alt="Mangalsutras" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqJ3aWHEDMQfE9U3us-2TqRWVgm2rN70kW1GaVTnf9uvgtjTpfbcP5Buw2qteyqulJ2DHjYGfW-KlicUjP81QkuHYy7XX7-yruoVEpuesRgHkRLH6REOqTtZknQMQIvEloU4pZ1PU7eUMFqFJ6K2oqcgQ0IXCZhdV2UT9nItB65pvW5OS4LRBG1pNyaAIxs3lpYlh4T_w1LFGAO8vgzpfP4hOFb1aZC3hqLn99PVWNM6X5BZ_49ajG">
             </div>
@@ -526,7 +579,7 @@
           </div>
 
           <!-- Item 6: Gold Coins -->
-          <div onclick="filterCategory('coins')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform">
+          <div onclick="filterCategory('coins')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform arch-float-even">
             <div class="w-full aspect-[4/5] rounded-t-full rounded-b-lg overflow-hidden bg-surface-container p-1 arch-card-3d border border-outline-variant/40">
               <img class="w-full h-full object-cover rounded-t-full rounded-b group-hover:scale-105 transition-transform duration-500 shadow-inner" alt="Coins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACjjwKcPvjWOcr_DKotuHabkczzftuHEjQjFlyFpk5rvT8K59EbFjIBlRNGJHeR22mipf_3sjiH1hy_RQyqRRgGs82AF9XXNu8P9kky64a_q_XfT2rBDUBAhiJyiZj-4S-bki_Z2DyxkyLSVsrtN9iqM6U6Ki1WoiphtKZIZCPNplN-_DEVW5KiSWrFXWCRb1I8cqbxe2GFDzODSnlQ-bJzh6-eee6mwMb__N88z-mDb0HVErWgCjo">
             </div>
@@ -535,7 +588,7 @@
           </div>
 
           <!-- Item 7: Men's Jewels -->
-          <div onclick="filterCategory('mens')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform">
+          <div onclick="filterCategory('mens')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform arch-float-odd">
             <div class="w-full aspect-[4/5] rounded-t-full rounded-b-lg overflow-hidden bg-surface-container p-1 arch-card-3d border border-outline-variant/40">
               <img class="w-full h-full object-cover rounded-t-full rounded-b group-hover:scale-105 transition-transform duration-500 shadow-inner" alt="Men's" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw5Un0T0TUxh5qJKUZDDdZdE5TkCSAfvauF9bPtJBQ6GcSAoagCdQKcVWIrF0UENKRRyrdZlyv9M2_KtY7QwOfcv80mRlviaMnXFOZMeZxlI1Thf8WdcyMHnCz3l6XgtEMDHYQL-mE5uxNwzWQbuCIr7PTYLLtiEbOLp7CGIetfmO0YrMLDAGRnw-8Zp56unTIRgljVXYPR4g4khnWxEUcqei-N3TXZW9_BlePakDgVpx8oM3c_8ER">
             </div>
@@ -544,7 +597,7 @@
           </div>
 
           <!-- Item 8: Nose Pins -->
-          <div onclick="filterCategory('nosepins')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform">
+          <div onclick="filterCategory('nosepins')" class="group flex flex-col items-center text-center preserve-3d cursor-pointer active:scale-95 transition-transform arch-float-even">
             <div class="w-full aspect-[4/5] rounded-t-full rounded-b-lg overflow-hidden bg-surface-container p-1 arch-card-3d border border-outline-variant/40">
               <img class="w-full h-full object-cover rounded-t-full rounded-b group-hover:scale-105 transition-transform duration-500 shadow-inner" alt="Nose Pins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuRw1YWDjuKumjGb5-IRGWKV6aMXhLruq0M-WbQSzwzBMLPsiLIxEZu1IW4Rn5RH6HPirQ_kt8x5plbNjVVF6bskn4QXAif9s8OobHTAntDNv3_lNDRujm1tobdNykIfkD_602CuyNR3rjJK6F3Gxi6c7CKNoc7fwZSzVTn1E5gwQC5KaU-luHg4zT_35qWF1BvKFKe3dOGXB4NekCK40iQCkQNW3InJqBiXtei7lZolq8O1_7-9tK">
             </div>
@@ -568,10 +621,11 @@
             </button>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-space-md preserve-3d">
+          <!-- Mobile Touch Swipeable 3D Carousel / Desktop 4-Col Grid -->
+          <div class="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-space-md overflow-x-auto sm:overflow-visible snap-x snap-mandatory pb-3 scrollbar-none preserve-3d">
             <!-- Collection 1: Aura of Avadh -->
-            <div class="relative group rounded-xl overflow-hidden bg-surface card-3d-bevel flex flex-col border border-outline-variant/30 preserve-3d">
-              <div class="relative h-64 sm:h-80 overflow-hidden">
+            <div class="w-[82vw] sm:w-auto shrink-0 snap-center relative group rounded-xl overflow-hidden bg-surface card-3d-bevel flex flex-col border border-outline-variant/30 preserve-3d sheen-overlay">
+              <div class="relative h-56 sm:h-80 overflow-hidden">
                 <img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out" alt="Aura of Avadh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIUryg81LONj44M3QLnjbs71RYUGdcEvpG0GbdSKB2OnXcEfSXf5ePu0wAOSZImZD_dj4t8Yeg5qPpaRak5iLVR6TsHlW-Z-np1mYNN27azCDSfbGp_7Pl4gFsZnKSxIuVBHuSghHMVZe8fm5qckP8_nB5PeEmD-6aJab2YnT7gupX_ucFl6mcAtP7Yubb6J0j3_jasPraBvBP4MJlgk_TS9qzLIAeDqTPFSF3ra_5qhRIWxlu6Yi9">
                 <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
                 <span class="absolute top-3 left-3 bg-surface/90 backdrop-blur-md text-primary font-label-caps-sm text-[10px] px-2.5 py-1 rounded uppercase tracking-wider font-bold shadow-md border border-secondary/20">Uncut Polki</span>
@@ -591,8 +645,8 @@
             </div>
 
             <!-- Collection 2: Dharohar -->
-            <div class="relative group rounded-xl overflow-hidden bg-surface card-3d-bevel flex flex-col border border-outline-variant/30 preserve-3d">
-              <div class="relative h-64 sm:h-80 overflow-hidden">
+            <div class="w-[82vw] sm:w-auto shrink-0 snap-center relative group rounded-xl overflow-hidden bg-surface card-3d-bevel flex flex-col border border-outline-variant/30 preserve-3d sheen-overlay">
+              <div class="relative h-56 sm:h-80 overflow-hidden">
                 <img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out" alt="Dharohar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA496BWZBbIPJIN644s__ccW3Jb7Un2U2nN_e9oJz-FFwHojf5TnqIbYaYmjEVPS8r0W4X3RQGvJcMKgvfNLFSTL_2eijFPNBuKdeYgQkAKlU0CsS7nOBdqh4HXV2e1tNdC-97kijUFOuRFggAPgmZ1sli4Uy-nf2ub3Epluq14CzrsUN-nM0lMf1etu8EY21zqhrJQOUW-MSlFcM_aJBKPEF4g2uxwRimqFyhDb6xGzTi1WyO6il2j">
                 <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
                 <span class="absolute top-3 left-3 bg-surface/90 backdrop-blur-md text-primary font-label-caps-sm text-[10px] px-2.5 py-1 rounded uppercase tracking-wider font-bold shadow-md border border-secondary/20">Temple Gold</span>
@@ -612,8 +666,8 @@
             </div>
 
             <!-- Collection 3: Starlight Solitaires -->
-            <div class="relative group rounded-xl overflow-hidden bg-surface card-3d-bevel flex flex-col border border-outline-variant/30 preserve-3d">
-              <div class="relative h-64 sm:h-80 overflow-hidden">
+            <div class="w-[82vw] sm:w-auto shrink-0 snap-center relative group rounded-xl overflow-hidden bg-surface card-3d-bevel flex flex-col border border-outline-variant/30 preserve-3d sheen-overlay">
+              <div class="relative h-56 sm:h-80 overflow-hidden">
                 <img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out" alt="Starlight Solitaires" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGKL2ErFFrI5GiO5IksQtOxxYBav2hK19JVISPKJH20NwMDj3lQQEs2GHDGyEuPOu8ymwvyr8l2as2exFVdWwmk3a9gzqb8utS9l-yF6y8R8iOG2vMdmMHJuJ6sqkEs76AaHnEGoox8sXM7deLyFWjprsTGU-VV75cnJ3d6zTQLMltYpV-ILLcO_hnrxliQzX-O8sRY8dPWVlBFBA0vr6545N0nOcYaIDqlvs9iu0JjBDItfOKafHj">
                 <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
                 <span class="absolute top-3 left-3 bg-surface/90 backdrop-blur-md text-primary font-label-caps-sm text-[10px] px-2.5 py-1 rounded uppercase tracking-wider font-bold shadow-md border border-secondary/20">VVS Diamonds</span>
@@ -633,8 +687,8 @@
             </div>
 
             <!-- Collection 4: Rivaah Bridal Legacy -->
-            <div class="relative group rounded-xl overflow-hidden bg-surface card-3d-bevel flex flex-col border border-outline-variant/30 preserve-3d">
-              <div class="relative h-64 sm:h-80 overflow-hidden">
+            <div class="w-[82vw] sm:w-auto shrink-0 snap-center relative group rounded-xl overflow-hidden bg-surface card-3d-bevel flex flex-col border border-outline-variant/30 preserve-3d sheen-overlay">
+              <div class="relative h-56 sm:h-80 overflow-hidden">
                 <img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out" alt="Rivaah Bridal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm_Apt_MsZPscFjhCZ6YubDir1nnugesOHClO2V5PwrPkeEMSu7gipPF4ZmiJ_3A5RWlqy0qOMbdfUFzYGGp8nnRfUOcI_IRwSnBwFx9aaFGwzMuMC5JdvriIv3aF-3rQ5bLdGIUNXn_qrJMfukal2dovn66Oq6Ka3DQE1e767_oI8nqc9T7CcdnBcEQS0iVhPgbeCA-L-dyLELONNsnA1GDwlhLiyuGfKi6h8ia7aAJK8gPZWEtvl">
                 <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
                 <span class="absolute top-3 left-3 bg-secondary-fixed text-primary font-label-caps-sm text-[10px] px-2.5 py-1 rounded uppercase tracking-wider font-bold shadow-md shimmer-badge">Bridal Trousseau</span>
@@ -694,8 +748,8 @@
           </button>
         </div>
 
-        <!-- 4-Column Product Grid (Mobile Responsive) -->
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-space-md preserve-3d">
+        <!-- 2-Column Mobile / 4-Column Desktop Product Grid with 3D Depth -->
+        <div id="productGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 preserve-3d">
           
           <!-- Product 1 -->
           <div data-category="chokers" class="product-item group bg-surface-container-lowest rounded-xl overflow-hidden card-3d-bevel flex flex-col justify-between border border-outline-variant/40 preserve-3d">
@@ -1020,9 +1074,10 @@
             <h2 class="text-2xl sm:text-headline-lg font-serif text-primary mt-1">Royal Brides of JR. Jewellers</h2>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-space-lg preserve-3d">
+          <!-- Mobile Touch Swipeable Carousel / Desktop 3-Col Grid -->
+          <div class="flex md:grid md:grid-cols-3 gap-3 sm:gap-space-lg overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-3 scrollbar-none preserve-3d">
             <!-- Story 1 -->
-            <div class="bg-surface rounded-xl p-4 sm:p-space-lg card-3d-bevel border border-outline-variant/30 flex flex-col justify-between">
+            <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-surface rounded-xl p-4 sm:p-space-lg card-3d-bevel border border-outline-variant/30 flex flex-col justify-between">
               <p class="font-body-md text-xs sm:text-body-md text-on-surface italic leading-relaxed">
                 “My bespoke bridal polki choker from JR. Jewellers was the crown of my Udaipur wedding. Their master designer personally flew down with customized gouache sketches.”
               </p>
@@ -1038,7 +1093,7 @@
             </div>
 
             <!-- Story 2 -->
-            <div class="bg-surface rounded-xl p-4 sm:p-space-lg card-3d-bevel border border-outline-variant/30 flex flex-col justify-between">
+            <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-surface rounded-xl p-4 sm:p-space-lg card-3d-bevel border border-outline-variant/30 flex flex-col justify-between">
               <p class="font-body-md text-xs sm:text-body-md text-on-surface italic leading-relaxed">
                 “We have trusted JR. Jewellers for three generations. When buying our daughter’s solitaire and antique kadas, their BIS hallmarking documentation left no doubts.”
               </p>
@@ -1054,7 +1109,7 @@
             </div>
 
             <!-- Story 3 -->
-            <div class="bg-surface rounded-xl p-4 sm:p-space-lg card-3d-bevel border border-outline-variant/30 flex flex-col justify-between">
+            <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-surface rounded-xl p-4 sm:p-space-lg card-3d-bevel border border-outline-variant/30 flex flex-col justify-between">
               <p class="font-body-md text-xs sm:text-body-md text-on-surface italic leading-relaxed">
                 “Their Try at Home concierge service is unparalleled. Having the armoured salon van bring twelve signature necklaces for trial made our choice royal and peaceful.”
               </p>
@@ -2514,51 +2569,51 @@
         return;
       }
 
-      // Render Cards
+      // Render Cards (Optimized 2-Column Mobile & 4-Column Desktop with 3D Depth)
       grid.innerHTML = filtered.map(prod => {
         const isWishlisted = wishlist.includes(prod.id);
         return `
-          <div data-category="${prod.category}" class="product-item group bg-surface-container-lowest rounded-xl overflow-hidden card-3d-bevel flex flex-col justify-between border border-outline-variant/40 preserve-3d">
+          <div data-category="${prod.category}" class="product-item group bg-surface-container-lowest rounded-xl overflow-hidden card-3d-bevel flex flex-col justify-between border border-outline-variant/40 preserve-3d transition-transform duration-300">
             <div class="relative w-full aspect-[4/5] bg-surface-container overflow-hidden cursor-pointer" onclick="openProductQuickView(${prod.id})">
               <img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out" alt="${prod.name}" src="${prod.image}" loading="lazy">
               
-              <button onclick="event.stopPropagation(); toggleWishlist(${prod.id})" aria-label="Add to Wishlist" class="wishlist-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-surface/90 backdrop-blur-md ${isWishlisted ? 'text-error' : 'text-primary'} hover:text-error flex items-center justify-center transition-all duration-200 shadow-md active:scale-90">
-                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' ${isWishlisted ? 1 : 0};">favorite</span>
+              <button onclick="event.stopPropagation(); toggleWishlist(${prod.id})" aria-label="Add to Wishlist" class="wishlist-btn absolute top-2 right-2 sm:top-3 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-surface/90 backdrop-blur-md ${isWishlisted ? 'text-error' : 'text-primary'} hover:text-error flex items-center justify-center transition-all duration-200 shadow-md active:scale-90 z-10">
+                <span class="material-symbols-outlined text-[16px] sm:text-[18px]" style="font-variation-settings: 'FILL' ${isWishlisted ? 1 : 0};">favorite</span>
               </button>
 
-              <div class="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-center gap-1.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300">
-                <button onclick="event.stopPropagation(); openAppointmentModal('Live Video Call for ${prod.name}')" class="flex-1 py-1.5 sm:py-2 bg-primary/95 backdrop-blur-md text-on-primary text-[9.5px] sm:text-[10px] rounded uppercase font-semibold shadow-lg active:scale-95 flex items-center justify-center gap-1 border border-secondary-fixed/30">
+              <div class="hidden sm:flex absolute bottom-2.5 left-2.5 right-2.5 items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
+                <button onclick="event.stopPropagation(); openAppointmentModal('Live Video Call for ${prod.name}')" class="flex-1 py-1.5 bg-primary/95 backdrop-blur-md text-on-primary text-[9.5px] rounded uppercase font-semibold shadow-lg active:scale-95 flex items-center justify-center gap-1 border border-secondary-fixed/30">
                   <span class="material-symbols-outlined text-[13px]">videocam</span>
                   <span>Live Video</span>
                 </button>
-                <button onclick="event.stopPropagation(); openAppointmentModal('At-Home Trial for ${prod.name}')" class="flex-1 py-1.5 sm:py-2 bg-surface/95 backdrop-blur-md text-primary text-[9.5px] sm:text-[10px] rounded uppercase font-semibold shadow-lg active:scale-95 flex items-center justify-center gap-1 border border-outline-variant">
+                <button onclick="event.stopPropagation(); openAppointmentModal('At-Home Trial for ${prod.name}')" class="flex-1 py-1.5 bg-surface/95 backdrop-blur-md text-primary text-[9.5px] rounded uppercase font-semibold shadow-lg active:scale-95 flex items-center justify-center gap-1 border border-outline-variant">
                   <span class="material-symbols-outlined text-[13px]">home_pin</span>
                   <span>Try at Home</span>
                 </button>
               </div>
 
-              <span class="absolute top-3 left-3 bg-secondary-fixed text-primary font-label-caps-sm text-[9.5px] sm:text-[10px] font-bold px-2 py-0.5 rounded shadow-sm shimmer-badge">${prod.badge || 'BIS 916'}</span>
+              <span class="absolute top-2 left-2 sm:top-3 sm:left-3 bg-secondary-fixed text-primary font-label-caps-sm text-[8px] sm:text-[9.5px] font-bold px-1.5 py-0.5 rounded shadow-sm shimmer-badge z-10">${prod.badge || 'BIS 916'}</span>
             </div>
 
-            <div class="p-3.5 sm:p-space-md flex flex-col flex-1 justify-between bg-surface-container-lowest">
+            <div class="p-2.5 sm:p-space-md flex flex-col flex-1 justify-between bg-surface-container-lowest">
               <div>
-                <span class="font-label-caps-sm text-[9.5px] sm:text-[10px] text-secondary uppercase tracking-widest font-semibold block">${prod.tag}</span>
-                <h3 onclick="openProductQuickView(${prod.id})" class="font-headline-sm text-base sm:text-headline-sm font-serif text-primary mt-1 group-hover:text-secondary transition-colors line-clamp-1 cursor-pointer">
+                <span class="font-label-caps-sm text-[8px] sm:text-[10px] text-secondary uppercase tracking-wider font-semibold block truncate">${prod.tag}</span>
+                <h3 onclick="openProductQuickView(${prod.id})" class="font-headline-sm text-xs sm:text-headline-sm font-serif text-primary mt-1 group-hover:text-secondary transition-colors line-clamp-1 cursor-pointer">
                   ${prod.name}
                 </h3>
-                <div class="flex items-center gap-2 mt-1.5">
-                  <span class="font-price-numeral text-lg sm:text-price-numeral text-primary font-bold">${formatINR(prod.price)}</span>
-                  <span class="font-body-sm text-xs text-outline line-through">${formatINR(prod.originalPrice)}</span>
+                <div class="flex items-center gap-1.5 sm:gap-2 mt-1">
+                  <span class="font-price-numeral text-xs sm:text-price-numeral text-primary font-bold">${formatINR(prod.price)}</span>
+                  <span class="font-body-sm text-[9.5px] sm:text-xs text-outline line-through">${formatINR(prod.originalPrice)}</span>
                 </div>
-                <div class="mt-2 p-2 bg-surface-container-low/80 rounded text-[10.5px] sm:text-[11px] font-body-sm text-on-surface-variant flex items-center justify-between border border-outline-variant/20">
-                  <span>Gross: ${prod.grossWeight}</span>
-                  <span class="text-secondary font-bold cursor-pointer hover:underline" onclick="showPriceBreakdown(${prod.id})">Breakdown</span>
+                <div class="mt-1.5 p-1.5 sm:p-2 bg-surface-container-low/80 rounded text-[9px] sm:text-[11px] font-body-sm text-on-surface-variant flex items-center justify-between border border-outline-variant/20">
+                  <span class="truncate">${prod.grossWeight}</span>
+                  <span class="text-secondary font-bold shrink-0 ml-1 cursor-pointer hover:underline" onclick="showPriceBreakdown(${prod.id})">Details</span>
                 </div>
               </div>
 
-              <div class="pt-3 sm:pt-space-md mt-auto">
-                <button onclick="addToCart(${prod.id})" class="w-full py-2.5 bg-gradient-to-r from-primary via-primary-container to-primary text-on-primary rounded font-label-caps-sm text-xs uppercase tracking-wider btn-3d flex items-center justify-center gap-2 border border-secondary-fixed/20 active:scale-95">
-                  <span class="material-symbols-outlined text-[16px]">shopping_bag</span>
+              <div class="pt-2 sm:pt-space-md mt-auto">
+                <button onclick="addToCart(${prod.id})" class="w-full py-2 sm:py-2.5 bg-gradient-to-r from-primary via-primary-container to-primary text-on-primary rounded font-label-caps-sm text-[10px] sm:text-xs uppercase tracking-wider btn-3d flex items-center justify-center gap-1 sm:gap-2 border border-secondary-fixed/20 active:scale-95">
+                  <span class="material-symbols-outlined text-[14px] sm:text-[16px]">shopping_bag</span>
                   <span>Add to Bag</span>
                 </button>
               </div>
@@ -2566,6 +2621,11 @@
           </div>
         `;
       }).join('');
+
+      // Re-initialize 3D tilt engine for dynamically created cards
+      if (typeof init3DTiltEngine === 'function') {
+        init3DTiltEngine();
+      }
     }
 
     function filterProducts(category, pillBtn) {
@@ -3353,7 +3413,149 @@
       renderProducts('all');
       renderCart();
       renderWishlist();
+
+      // Initialize 3D effects & ambient particles
+      init3DTiltEngine();
+      initHeroGoldParticles();
+      initScroll3DReveal();
     });
+
+    // 20. 3D TILT & TOUCH DEPTH ENGINE
+    function init3DTiltEngine() {
+      const cards = document.querySelectorAll('.card-3d-bevel, .arch-card-3d');
+      
+      cards.forEach(card => {
+        if (card.dataset.tiltAttached) return;
+        card.dataset.tiltAttached = 'true';
+
+        // Desktop Pointer Parallax Tilt
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -7;
+          const rotateY = ((x - centerX) / centerX) * 7;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(8px) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale3d(1, 1, 1)';
+        });
+
+        // Mobile Touch Interactive 3D Feedback
+        card.addEventListener('touchstart', (e) => {
+          card.classList.add('touch-active');
+          if (e.touches && e.touches[0]) {
+            const rect = card.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotX = ((y - centerY) / centerY) * -5;
+            const rotY = ((x - centerX) / centerX) * 5;
+            card.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateZ(6px) scale(0.985)`;
+          }
+        }, { passive: true });
+
+        card.addEventListener('touchmove', (e) => {
+          if (e.touches && e.touches[0]) {
+            const rect = card.getBoundingClientRect();
+            const touch = e.touches[0];
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotX = Math.max(-6, Math.min(6, ((y - centerY) / centerY) * -5));
+            const rotY = Math.max(-6, Math.min(6, ((x - centerX) / centerX) * 5));
+            card.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateZ(6px) scale(0.985)`;
+          }
+        }, { passive: true });
+
+        card.addEventListener('touchend', () => {
+          card.classList.remove('touch-active');
+          setTimeout(() => {
+            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+          }, 120);
+        });
+
+        card.addEventListener('touchcancel', () => {
+          card.classList.remove('touch-active');
+          card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+        });
+      });
+    }
+
+    // 21. AMBIENT GOLD STARLIGHT PARTICLES CANVAS
+    function initHeroGoldParticles() {
+      const canvas = document.getElementById('heroGoldParticles');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      function resize() {
+        if (!canvas) return;
+        canvas.width = canvas.offsetWidth || window.innerWidth;
+        canvas.height = canvas.offsetHeight || 600;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const particles = Array.from({ length: 32 }, () => ({
+        x: Math.random() * (canvas.width || 800),
+        y: Math.random() * (canvas.height || 600),
+        radius: Math.random() * 1.8 + 0.6,
+        alpha: Math.random() * 0.7 + 0.2,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: -Math.random() * 0.5 - 0.2,
+        pulseSpeed: Math.random() * 0.03 + 0.01,
+      }));
+
+      function animate() {
+        if (!canvas || !ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.speedX;
+          p.y += p.speedY;
+          p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.015;
+
+          if (p.y < 0) { p.y = canvas.height; p.x = Math.random() * canvas.width; }
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+
+          const clampedAlpha = Math.max(0.1, Math.min(0.9, p.alpha));
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(254, 214, 91, ${clampedAlpha})`;
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#fed65b';
+          ctx.fill();
+        });
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    // 22. SCROLL-DRIVEN 3D PERSPECTIVE REVEAL
+    function initScroll3DReveal() {
+      const reveals = document.querySelectorAll('.reveal-3d');
+      if (!('IntersectionObserver' in window)) {
+        reveals.forEach(el => el.classList.add('is-revealed'));
+        return;
+      }
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      reveals.forEach(el => observer.observe(el));
+    }
   </script>
 </body>
 </html>
