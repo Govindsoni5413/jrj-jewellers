@@ -131,6 +131,26 @@
       border: 2px solid #ffffff;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
+
+    /* Print Styles for Tax Invoices and Gold Bonds */
+    @media print {
+      body * { visibility: hidden !important; }
+      #taxInvoicePrintSection, #taxInvoicePrintSection * { visibility: visible !important; }
+      #taxInvoicePrintSection {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 24px !important;
+        background: #ffffff !important;
+        color: #1a1a1a !important;
+        display: block !important;
+        z-index: 999999 !important;
+      }
+      .no-print { display: none !important; }
+    }
   </style>
 
   <!-- Tailwind CSS CDN & Config -->
@@ -647,12 +667,31 @@
         </div>
 
         <!-- Filter Pills with Touch Scrolling -->
-        <div class="flex items-center justify-start sm:justify-center gap-2 mb-6 sm:mb-space-lg overflow-x-auto pb-2 scrollbar-none px-1" id="filterPillsContainer">
-          <button onclick="filterProducts('all', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-primary text-on-primary font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider shadow-md whitespace-nowrap shrink-0 border border-secondary-fixed/30 font-semibold">All Jewels</button>
-          <button onclick="filterProducts('chokers', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Bridal Chokers</button>
-          <button onclick="filterProducts('jhumkas', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Heirloom Jhumkas</button>
-          <button onclick="filterProducts('solitaires', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Solitaires</button>
-          <button onclick="filterProducts('haars', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Grand Haars</button>
+        <div class="flex items-center justify-start sm:justify-center gap-2 mb-4 sm:mb-6 overflow-x-auto pb-2 scrollbar-none px-1" id="filterPillsContainer">
+          <button data-cat="all" onclick="filterProducts('all', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-primary text-on-primary font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider shadow-md whitespace-nowrap shrink-0 border border-secondary-fixed/30 font-semibold">All Jewels</button>
+          <button data-cat="chokers" onclick="filterProducts('chokers', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Bridal Chokers</button>
+          <button data-cat="jhumkas" onclick="filterProducts('jhumkas', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Heirloom Jhumkas</button>
+          <button data-cat="solitaires" onclick="filterProducts('solitaires', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Solitaires</button>
+          <button data-cat="haars" onclick="filterProducts('haars', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Grand Haars</button>
+          <button data-cat="bangles" onclick="filterProducts('bangles', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Kadas &amp; Bangles</button>
+          <button data-cat="mangalsutra" onclick="filterProducts('mangalsutra', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Mangalsutra</button>
+          <button data-cat="coins" onclick="filterProducts('coins', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">24KT Coins</button>
+          <button data-cat="mens" onclick="filterProducts('mens', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Men's Jewels</button>
+          <button data-cat="nosepins" onclick="filterProducts('nosepins', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Nath &amp; Pins</button>
+          <button data-cat="polki" onclick="filterProducts('polki', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Syndicate Polki</button>
+          <button data-cat="gold" onclick="filterProducts('gold', this)" class="filter-pill px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-surface-container text-on-surface font-label-caps-sm text-[11px] sm:text-label-caps-sm uppercase tracking-wider hover:bg-surface-container-high whitespace-nowrap shrink-0 transition-all active:scale-95 shadow-xs border border-outline-variant/30">Temple Gold</button>
+        </div>
+
+        <!-- Catalog Status Counter & Clear Filter -->
+        <div class="flex items-center justify-between mb-5 px-1">
+          <div class="font-label-caps-sm text-[11px] sm:text-xs text-secondary uppercase tracking-wider font-bold flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+            <span id="catalogCountText">Displaying 12 Certified Royal Heirlooms</span>
+          </div>
+          <button id="activeFilterBadge" onclick="filterCategory('all')" class="hidden text-[10px] font-label-caps-sm uppercase tracking-wider bg-surface-container-high hover:bg-secondary-fixed/20 text-primary font-semibold px-2.5 py-1 rounded-full border border-outline-variant/40 flex items-center gap-1 transition-colors">
+            <span id="activeFilterLabel">All</span>
+            <span class="material-symbols-outlined text-[14px]">close</span>
+          </button>
         </div>
 
         <!-- 4-Column Product Grid (Mobile Responsive) -->
@@ -906,7 +945,7 @@
               </div>
 
               <!-- CTA -->
-              <button onclick="openAppointmentModal('Swarna Nidhi Scheme Enrollment')" class="w-full py-3 bg-gradient-to-r from-secondary to-secondary-container text-on-secondary hover:text-on-secondary-container rounded font-label-caps-sm text-xs uppercase tracking-widest font-bold btn-3d flex items-center justify-center gap-2 border border-secondary shadow-lg active:scale-95">
+              <button onclick="openSwarnaNidhiModal()" class="w-full py-3 bg-gradient-to-r from-secondary to-secondary-container text-on-secondary hover:text-on-secondary-container rounded font-label-caps-sm text-xs uppercase tracking-widest font-bold btn-3d flex items-center justify-center gap-2 border border-secondary shadow-lg active:scale-95">
                 <span class="material-symbols-outlined text-[17px]">verified_user</span>
                 <span>Enroll in Swarna Nidhi</span>
               </button>
@@ -1478,21 +1517,580 @@
     </div>
   </div>
 
-  <!-- 7. CHECKOUT SUCCESS MODAL -->
-  <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
-    <div class="bg-surface rounded-2xl max-w-md w-full p-6 sm:p-8 border border-secondary-fixed/40 shadow-2xl text-center card-3d-bevel">
-      <div class="w-14 h-14 bg-secondary-fixed/20 text-secondary border border-secondary-fixed/40 rounded-full flex items-center justify-center mx-auto mb-3">
-        <span class="material-symbols-outlined text-[28px] text-secondary">verified</span>
+  <!-- 7. SOVEREIGN 3-STEP CHECKOUT MODAL -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md hidden overflow-y-auto">
+    <div class="bg-surface rounded-2xl max-w-xl w-full p-5 sm:p-7 border border-secondary-fixed/40 shadow-2xl relative card-3d-bevel my-auto max-h-[94vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeCheckoutModal()" class="absolute top-3.5 right-3.5 text-on-surface-variant hover:text-primary transition-colors p-1" aria-label="Close">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+
+      <!-- Royal Checkout Header -->
+      <div class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined text-secondary text-[20px]">shield_person</span>
+        <span class="font-label-caps-sm text-[10.5px] uppercase tracking-widest text-secondary font-bold">Armoured Escort Checkout</span>
       </div>
-      <span class="font-label-caps-sm text-[10px] text-secondary uppercase tracking-widest font-bold">Imperial Order Confirmed</span>
-      <h3 class="font-headline-sm text-xl sm:text-2xl font-serif text-primary mt-0.5">Thank You for Your Patronage</h3>
-      <p class="font-body-sm text-on-surface-variant mt-2 text-xs sm:text-[13px] leading-relaxed">
-        Your consignment reference is <strong class="text-primary font-mono" id="checkoutRefCode">JRJ-9821-DEL</strong>. Our security courier desk will contact you within 2 hours to confirm your armoured delivery schedule.
-      </p>
-      <div class="mt-5">
-        <button onclick="closeCheckoutModal()" class="w-full py-3 bg-primary text-on-primary rounded font-label-caps-sm uppercase tracking-widest font-bold btn-3d text-xs">
+
+      <!-- Stepper Indicator -->
+      <div class="flex items-center justify-between border-b border-outline-variant/30 pb-3 mb-4">
+        <div class="flex items-center gap-2">
+          <span id="stepBadge1" class="w-6 h-6 rounded-full bg-primary text-on-primary text-xs font-bold flex items-center justify-center">1</span>
+          <span class="text-xs font-serif font-bold text-primary">Delivery</span>
+        </div>
+        <div class="h-[1px] flex-1 bg-outline-variant/40 mx-3"></div>
+        <div class="flex items-center gap-2">
+          <span id="stepBadge2" class="w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center justify-center">2</span>
+          <span class="text-xs font-serif font-bold text-on-surface-variant">Payment</span>
+        </div>
+        <div class="h-[1px] flex-1 bg-outline-variant/40 mx-3"></div>
+        <div class="flex items-center gap-2">
+          <span id="stepBadge3" class="w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center justify-center">3</span>
+          <span class="text-xs font-serif font-bold text-on-surface-variant">Confirmed</span>
+        </div>
+      </div>
+
+      <!-- STEP 1: Address Details -->
+      <div id="checkoutStep1" class="flex flex-col gap-3">
+        <h4 class="font-headline-sm text-base sm:text-lg font-serif text-primary">Sovereign Delivery Destination</h4>
+        <p class="text-xs text-on-surface-variant -mt-1">Orders dispatched in tamper-evident steel-mesh containers with armed guard protection.</p>
+        
+        <form onsubmit="handleAddressSubmit(event)" class="flex flex-col gap-2.5 mt-1">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">Patron Full Name *</label>
+              <input id="checkoutFullName" type="text" required placeholder="e.g. Radhika Singhania" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">Mobile (WhatsApp Updates) *</label>
+              <input id="checkoutPhone" type="tel" inputmode="tel" required placeholder="+91 98765 43210" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">Email Address *</label>
+              <input id="checkoutEmail" type="email" required placeholder="patron@royal.in" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">PIN Code (Auto-Detect) *</label>
+              <input id="checkoutPincode" oninput="autoFillPincode(this.value)" maxlength="6" inputmode="numeric" type="text" required placeholder="e.g. 110001" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm font-mono focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">Address / Estate / Villa *</label>
+            <input id="checkoutAddress" type="text" required placeholder="Bungalow / Apartment Name, Street, Landmark" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">City *</label>
+              <input id="checkoutCity" type="text" required placeholder="New Delhi" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">State *</label>
+              <input id="checkoutState" type="text" required placeholder="Delhi" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">Preferred Escort Slot</label>
+            <select id="checkoutSlot" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+              <option value="Morning">Morning (10:00 AM - 01:00 PM) • Armoured Guard Escort</option>
+              <option value="Afternoon">Afternoon (02:00 PM - 05:00 PM) • Armoured Guard Escort</option>
+              <option value="Evening">Evening (06:00 PM - 08:30 PM) • White-Glove Handover</option>
+            </select>
+          </div>
+
+          <div class="mt-2 flex items-center justify-between bg-surface-container-low p-2.5 rounded border border-outline-variant/30">
+            <span class="text-xs text-on-surface-variant font-body-sm">Order Value: <strong id="step1TotalText" class="text-primary font-bold">₹0</strong></span>
+            <span class="text-[10.5px] text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">100% Insured Transit</span>
+          </div>
+
+          <button type="submit" class="w-full mt-2 py-3 bg-gradient-to-r from-primary via-primary-container to-primary text-on-primary rounded font-label-caps-sm uppercase tracking-widest font-bold btn-3d text-xs flex items-center justify-center gap-1.5 active:scale-95">
+            <span>Proceed to Payment Gate</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- STEP 2: Payment Gate -->
+      <div id="checkoutStep2" class="hidden flex flex-col gap-3">
+        <h4 class="font-headline-sm text-base sm:text-lg font-serif text-primary">Sovereign Payment Gateway</h4>
+        <p class="text-xs text-on-surface-variant -mt-1">Zero surcharge on high-value jewelry transactions. Encrypted 256-bit vault channel.</p>
+
+        <!-- Payment Mode Selectors -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-center mt-1">
+          <button type="button" onclick="selectPaymentMethod('upi')" id="pm-upi" class="payment-method-btn p-2 rounded-lg border-2 border-primary bg-primary/5 text-primary text-[11px] font-bold flex flex-col items-center gap-1">
+            <span class="material-symbols-outlined text-[20px]">qr_code_2</span>
+            <span>Instant UPI</span>
+          </button>
+          <button type="button" onclick="selectPaymentMethod('card')" id="pm-card" class="payment-method-btn p-2 rounded-lg border border-outline-variant/50 bg-surface text-on-surface text-[11px] font-medium flex flex-col items-center gap-1">
+            <span class="material-symbols-outlined text-[20px]">credit_card</span>
+            <span>Sovereign Card</span>
+          </button>
+          <button type="button" onclick="selectPaymentMethod('emi')" id="pm-emi" class="payment-method-btn p-2 rounded-lg border border-outline-variant/50 bg-surface text-on-surface text-[11px] font-medium flex flex-col items-center gap-1">
+            <span class="material-symbols-outlined text-[20px]">payments</span>
+            <span>0% Luxury EMI</span>
+          </button>
+          <button type="button" onclick="selectPaymentMethod('cod')" id="pm-cod" class="payment-method-btn p-2 rounded-lg border border-outline-variant/50 bg-surface text-on-surface text-[11px] font-medium flex flex-col items-center gap-1">
+            <span class="material-symbols-outlined text-[20px]">security</span>
+            <span>Armoured COD</span>
+          </button>
+        </div>
+
+        <!-- Payment Method Details Views -->
+        <div class="bg-surface-container-low p-3 sm:p-4 rounded-xl border border-outline-variant/40 mt-1">
+          <!-- UPI Box -->
+          <div id="payment-view-upi" class="flex flex-col items-center text-center gap-2">
+            <div class="bg-white p-2.5 rounded-lg border border-outline-variant/30 shadow-xs flex flex-col items-center">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&amp;data=upi://pay?pa=jrjewellers@icici&amp;pn=JR%20Jewellers%20Private%20Limited&amp;cu=INR" alt="JR Jewellers UPI QR" class="w-28 h-28">
+              <span class="text-[9.5px] font-mono text-primary mt-1 font-bold">VPA: jrjewellers@icici</span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant">Scan using Google Pay, PhonePe, Paytm, or BHIM</p>
+            <div class="w-full flex gap-1.5 mt-1">
+              <input id="upiIdInput" type="text" placeholder="patron@okhdfcbank" class="flex-1 bg-surface border border-outline-variant/50 rounded px-2.5 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-secondary font-mono">
+              <button onclick="verifyUpi()" type="button" class="px-3 py-1 bg-primary text-on-primary rounded text-[10.5px] font-bold uppercase tracking-wider">Verify</button>
+            </div>
+          </div>
+
+          <!-- Card Box -->
+          <div id="payment-view-card" class="hidden flex flex-col gap-2">
+            <div>
+              <label class="block font-label-caps-sm text-[9.5px] uppercase tracking-wider text-primary font-bold mb-0.5">Card Number (Visa / Mastercard / Amex)</label>
+              <input id="cardNumInput" oninput="formatCardNumber(this)" maxlength="19" type="text" placeholder="4532 •••• •••• 8912" class="w-full bg-surface border border-outline-variant/50 rounded px-3 py-1.5 text-xs font-mono">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block font-label-caps-sm text-[9.5px] uppercase tracking-wider text-primary font-bold mb-0.5">Expiry (MM/YY)</label>
+                <input id="cardExpInput" maxlength="5" placeholder="12/28" type="text" class="w-full bg-surface border border-outline-variant/50 rounded px-3 py-1.5 text-xs font-mono">
+              </div>
+              <div>
+                <label class="block font-label-caps-sm text-[9.5px] uppercase tracking-wider text-primary font-bold mb-0.5">CVV / CVV2</label>
+                <input id="cardCvvInput" maxlength="4" placeholder="•••" type="password" class="w-full bg-surface border border-outline-variant/50 rounded px-3 py-1.5 text-xs font-mono">
+              </div>
+            </div>
+            <div>
+              <label class="block font-label-caps-sm text-[9.5px] uppercase tracking-wider text-primary font-bold mb-0.5">Cardholder Name</label>
+              <input id="cardNameInput" type="text" placeholder="Name as embossed on card" class="w-full bg-surface border border-outline-variant/50 rounded px-3 py-1.5 text-xs">
+            </div>
+          </div>
+
+          <!-- EMI Box -->
+          <div id="payment-view-emi" class="hidden flex flex-col gap-2">
+            <span class="text-xs font-bold text-primary">Select Sovereign No-Cost EMI Tenure:</span>
+            <label class="flex items-center justify-between p-2 bg-surface rounded border border-outline-variant/30 cursor-pointer text-xs">
+              <div class="flex items-center gap-2">
+                <input type="radio" name="emi_tenure" checked>
+                <span>3 Months No-Cost EMI</span>
+              </div>
+              <span id="emi3Text" class="font-bold font-price-numeral text-primary">₹0 / mo</span>
+            </label>
+            <label class="flex items-center justify-between p-2 bg-surface rounded border border-outline-variant/30 cursor-pointer text-xs">
+              <div class="flex items-center gap-2">
+                <input type="radio" name="emi_tenure">
+                <span>6 Months No-Cost EMI</span>
+              </div>
+              <span id="emi6Text" class="font-bold font-price-numeral text-primary">₹0 / mo</span>
+            </label>
+            <label class="flex items-center justify-between p-2 bg-surface rounded border border-outline-variant/30 cursor-pointer text-xs">
+              <div class="flex items-center gap-2">
+                <input type="radio" name="emi_tenure">
+                <span>12 Months No-Cost EMI</span>
+              </div>
+              <span id="emi12Text" class="font-bold font-price-numeral text-primary">₹0 / mo</span>
+            </label>
+            <span class="text-[10px] text-secondary font-semibold mt-1">Available via HDFC Infinia, ICICI Emeralde, Amex Platinum, and Axis Burgundy.</span>
+          </div>
+
+          <!-- COD Box -->
+          <div id="payment-view-cod" class="hidden flex flex-col gap-1.5 text-center p-2">
+            <span class="material-symbols-outlined text-secondary text-[26px]">verified</span>
+            <span class="text-xs font-bold text-primary">Armoured Handover Cash/Card on Delivery</span>
+            <p class="text-[11px] text-on-surface-variant leading-relaxed">
+              Pay via UPI, credit/debit card swipe machine, or cash directly to our armed escort courier upon inspecting your tamper-evident vault seal and certificate.
+            </p>
+          </div>
+        </div>
+
+        <!-- Order Summary Recalculation -->
+        <div class="bg-surface-container p-3 rounded-lg flex flex-col gap-1 text-xs">
+          <div class="flex justify-between text-on-surface-variant">
+            <span>Jewel Subtotal:</span>
+            <span id="step2Subtotal" class="font-semibold text-on-surface">₹0</span>
+          </div>
+          <div class="flex justify-between text-on-surface-variant">
+            <span>Privilege Voucher Discount:</span>
+            <span id="step2Discount" class="text-secondary font-semibold">₹0</span>
+          </div>
+          <div class="flex justify-between text-on-surface-variant">
+            <span>3% Bullion GST (CGST + SGST):</span>
+            <span id="step2Tax" class="font-semibold text-on-surface">₹0</span>
+          </div>
+          <div class="flex justify-between text-on-surface-variant">
+            <span>Insured Armoured Logistics:</span>
+            <span class="text-emerald-700 font-bold">COMPLIMENTARY</span>
+          </div>
+          <div class="border-t border-outline-variant/40 pt-1.5 mt-0.5 flex justify-between text-sm font-bold text-primary">
+            <span>Net Payable:</span>
+            <span id="step2Total" class="font-price-numeral text-base text-secondary">₹0</span>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex items-center gap-2 mt-2">
+          <button onclick="prevCheckoutStep()" type="button" class="py-2.5 px-4 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-caps-sm uppercase tracking-wider font-bold text-xs">
+            ← Address
+          </button>
+          <button onclick="placeSovereignOrder()" type="button" class="flex-1 py-3 bg-gradient-to-r from-primary via-primary-container to-primary text-on-primary rounded font-label-caps-sm uppercase tracking-widest font-bold btn-3d text-xs flex items-center justify-center gap-1.5 active:scale-95">
+            <span class="material-symbols-outlined text-[16px]">lock</span>
+            <span>Authorize &amp; Place Order</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Order Confirmed & Invoice -->
+      <div id="checkoutStep3" class="hidden flex flex-col items-center text-center gap-3 py-2">
+        <div class="w-14 h-14 bg-secondary-fixed/25 text-secondary border border-secondary-fixed/50 rounded-full flex items-center justify-center shadow-lg animate-float-subtle">
+          <span class="material-symbols-outlined text-[30px] text-secondary">workspace_premium</span>
+        </div>
+        <div>
+          <span class="font-label-caps-sm text-[10px] text-secondary uppercase tracking-widest font-bold block">Consignment Booked</span>
+          <h3 class="font-headline-sm text-xl sm:text-2xl font-serif text-primary mt-0.5">Imperial Order Confirmed</h3>
+          <p class="font-body-sm text-on-surface-variant mt-1 text-xs max-w-md">
+            Your high-jewelry heirloom order is secured under armed transit protocol. Official tax invoice and hallmarking documents have been prepared.
+          </p>
+        </div>
+
+        <div class="w-full bg-surface-container-low p-3.5 rounded-xl border border-secondary-fixed/30 text-left flex flex-col gap-2 text-xs">
+          <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+            <span class="text-on-surface-variant font-label-caps-sm uppercase tracking-wider text-[10px]">Order Reference</span>
+            <strong id="confirmedOrderRef" class="font-mono text-primary font-bold text-sm">JRJ-2026-9812</strong>
+          </div>
+          <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+            <span class="text-on-surface-variant font-label-caps-sm uppercase tracking-wider text-[10px]">Armoured Tracking Code</span>
+            <span id="confirmedConsignmentCode" class="font-mono text-secondary font-bold">BRINKS-EXP-4139</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-on-surface-variant font-label-caps-sm uppercase tracking-wider text-[10px]">Total Paid Amount</span>
+            <strong id="confirmedTotalPaid" class="font-price-numeral text-primary font-bold text-sm">₹0</strong>
+          </div>
+        </div>
+
+        <!-- 4-Stage Progress Tracker -->
+        <div class="w-full py-2">
+          <div class="text-[10.5px] font-label-caps-sm uppercase tracking-wider text-secondary font-bold text-left mb-2">Transit Lifecycle</div>
+          <div class="grid grid-cols-4 gap-1 text-center">
+            <div class="flex flex-col items-center gap-1">
+              <span class="w-6 h-6 rounded-full bg-emerald-700 text-white text-[11px] font-bold flex items-center justify-center">✓</span>
+              <span class="text-[9px] font-bold text-primary leading-tight">Order Placed</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <span class="w-6 h-6 rounded-full bg-primary text-secondary-fixed text-[11px] font-bold flex items-center justify-center animate-pulse">2</span>
+              <span class="text-[9px] font-bold text-primary leading-tight">Vault Inspected</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <span class="w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-bold flex items-center justify-center">3</span>
+              <span class="text-[9px] text-on-surface-variant leading-tight">Armoured Transit</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <span class="w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-bold flex items-center justify-center">4</span>
+              <span class="text-[9px] text-on-surface-variant leading-tight">Doorstep Handover</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="w-full flex flex-col sm:flex-row gap-2 mt-1">
+          <button onclick="printOfficialTaxInvoice()" type="button" class="flex-1 py-2.5 bg-gradient-to-r from-secondary to-secondary-container text-on-secondary rounded font-label-caps-sm uppercase tracking-wider font-bold btn-3d text-xs flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">receipt_long</span>
+            <span>Print Tax Invoice</span>
+          </button>
+          <button onclick="openTrackOrderModalFromCheckout()" type="button" class="flex-1 py-2.5 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-caps-sm uppercase tracking-wider font-bold text-xs flex items-center justify-center gap-1.5 border border-outline-variant/40">
+            <span class="material-symbols-outlined text-[16px]">local_shipping</span>
+            <span>Live Tracking</span>
+          </button>
+        </div>
+        <button onclick="closeCheckoutModal()" type="button" class="w-full py-2.5 bg-primary text-on-primary rounded font-label-caps-sm uppercase tracking-widest font-bold text-xs">
           Return to Boutique
         </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 7B. DEDICATED CONSIGNMENT TRACKING MODAL -->
+  <div id="trackOrderModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm hidden overflow-y-auto">
+    <div class="bg-surface rounded-2xl max-w-md w-full p-5 sm:p-7 border border-secondary-fixed/40 shadow-2xl relative card-3d-bevel my-auto max-h-[90vh] overflow-y-auto">
+      <button onclick="closeTrackOrderModal()" class="absolute top-3.5 right-3.5 text-on-surface-variant hover:text-primary transition-colors p-1" aria-label="Close">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+
+      <div class="flex items-center gap-2 mb-1 text-secondary">
+        <span class="material-symbols-outlined text-[20px]">local_shipping</span>
+        <span class="font-label-caps-sm text-[10px] uppercase tracking-widest font-bold">Armoured High-Value Logistics</span>
+      </div>
+      <h3 class="font-headline-sm text-xl font-serif text-primary">Track Consignment</h3>
+      <p class="font-body-sm text-on-surface-variant text-xs mt-0.5">Enter your 10-digit booking reference code to view real-time transit status.</p>
+
+      <div class="mt-3.5 flex gap-2">
+        <input id="trackingSearchInput" type="text" placeholder="e.g. JRJ-2026-9812" class="flex-1 px-3 py-2 bg-surface-container-low border border-outline-variant/50 rounded text-xs font-mono font-semibold focus:outline-none focus:ring-1 focus:ring-secondary uppercase">
+        <button onclick="trackOrderSubmit()" class="px-4 py-2 bg-primary text-on-primary rounded font-label-caps-sm text-xs uppercase tracking-wider font-bold btn-3d">Track</button>
+      </div>
+
+      <!-- Tracking Status Card -->
+      <div id="trackingStatusCard" class="mt-4 p-3.5 bg-surface-container-low rounded-xl border border-secondary-fixed/30 flex flex-col gap-2.5 text-xs">
+        <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+          <span class="text-on-surface-variant font-label-caps-sm uppercase tracking-wider text-[10px]">Status</span>
+          <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10.5px]">IN ARMOURED TRANSIT</span>
+        </div>
+        <div>
+          <span class="text-on-surface-variant block text-[10.5px]">Logistics Partner:</span>
+          <strong class="text-primary font-serif text-sm">Brinks &amp; Sequel Armoured Escort</strong>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-[11px]">
+          <div>
+            <span class="text-on-surface-variant block">Transit Vehicle:</span>
+            <span class="font-mono font-bold text-primary">DL-1CA-9821</span>
+          </div>
+          <div>
+            <span class="text-on-surface-variant block">Security Seal No:</span>
+            <span class="font-mono font-bold text-secondary">JRJ-SEAL-8841</span>
+          </div>
+        </div>
+        <div class="p-2 bg-secondary-fixed/15 border border-secondary-fixed/30 rounded flex items-center justify-between">
+          <span class="text-[11px] text-primary font-semibold">Delivery Handover Secret OTP:</span>
+          <span class="font-mono font-bold text-secondary text-sm tracking-widest">541328</span>
+        </div>
+        <span class="text-[10px] text-on-surface-variant italic">Share this OTP only with the armed courier officer after verifying the physical security seal.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7C. SWARNA NIDHI DIGITAL BOND ENROLLMENT MODAL -->
+  <div id="swarnaNidhiModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md hidden overflow-y-auto">
+    <div class="bg-surface rounded-2xl max-w-lg w-full p-5 sm:p-7 border border-secondary-fixed/40 shadow-2xl relative card-3d-bevel my-auto max-h-[92vh] overflow-y-auto">
+      <button onclick="closeSwarnaNidhiModal()" class="absolute top-3.5 right-3.5 text-on-surface-variant hover:text-primary transition-colors p-1" aria-label="Close">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+
+      <div id="swarnaNidhiFormView">
+        <div class="flex items-center gap-1.5 text-secondary mb-1">
+          <span class="material-symbols-outlined text-[20px]">workspace_premium</span>
+          <span class="font-label-caps-sm text-[10px] uppercase tracking-widest font-bold">10+1 Gold Savings Scheme</span>
+        </div>
+        <h3 class="font-headline-sm text-xl sm:text-2xl font-serif text-primary">Swarna Nidhi Bond Enrollment</h3>
+        <p class="font-body-sm text-on-surface-variant text-xs mt-1">
+          Deposit for 10 months, and JR. JEWELLERS contributes the entire 11th month installment as your royal patronage bonus.
+        </p>
+
+        <!-- Scheme Summary Box -->
+        <div class="my-3 p-3 bg-primary text-on-primary rounded-xl border border-secondary-fixed/40 flex justify-between items-center">
+          <div>
+            <span class="text-[10px] text-secondary-fixed uppercase tracking-wider font-label-caps-sm block">Selected Monthly Deposit</span>
+            <span id="swarnaModalMonthlyDisplay" class="font-price-numeral text-lg font-bold text-secondary-fixed">₹25,000 / mo</span>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] text-secondary-fixed uppercase tracking-wider font-label-caps-sm block">Maturity Gold Purchasing Value</span>
+            <span id="swarnaModalTotalDisplay" class="font-price-numeral text-lg font-bold text-emerald-300">₹2,75,000</span>
+          </div>
+        </div>
+
+        <form onsubmit="confirmSwarnaNidhi(event)" class="flex flex-col gap-2.5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">Patron Full Name *</label>
+              <input id="swarnaPatronName" type="text" required placeholder="Full legal name" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">Mobile / WhatsApp *</label>
+              <input id="swarnaPatronPhone" type="tel" inputmode="tel" required placeholder="+91 98..." class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">PAN / Aadhaar (Gold KYC) *</label>
+              <input id="swarnaPatronKyc" maxlength="12" type="text" required placeholder="ABCDE1234F" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm uppercase font-mono focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+            <div>
+              <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">Nominee Name *</label>
+              <input id="swarnaNomineeName" type="text" required placeholder="Nominee legal name" class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-label-caps-sm text-[10px] uppercase tracking-wider text-primary font-bold mb-1">AutoPay Mode Preference</label>
+            <select class="w-full bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-secondary">
+              <option>UPI AutoPay (Google Pay / PhonePe)</option>
+              <option>e-NACH NetBanking Mandate</option>
+              <option>Flagship Salon Monthly Standing Deposit</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full mt-2 py-3 bg-gradient-to-r from-secondary to-secondary-container text-on-secondary rounded font-label-caps-sm uppercase tracking-widest font-bold btn-3d text-xs flex items-center justify-center gap-1.5 active:scale-95">
+            <span class="material-symbols-outlined text-[17px]">verified</span>
+            <span>Issue Sovereign Gold Bond Certificate</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Digital Bond Certificate View -->
+      <div id="swarnaNidhiBondView" class="hidden flex flex-col items-center text-center gap-3">
+        <div class="border-4 border-double border-secondary-fixed/60 p-5 rounded-xl bg-gradient-to-b from-surface to-surface-container-low w-full text-left relative shadow-inner">
+          <div class="flex items-center justify-between border-b border-secondary-fixed/40 pb-3 mb-3">
+            <div>
+              <span class="font-headline-sm text-base font-serif text-primary font-bold block">JR. JEWELLERS</span>
+              <span class="text-[9px] font-label-caps-sm uppercase tracking-widest text-secondary font-semibold">Sovereign Swarna Nidhi Bond</span>
+            </div>
+            <span class="material-symbols-outlined text-secondary text-[28px]">workspace_premium</span>
+          </div>
+
+          <div class="flex flex-col gap-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-on-surface-variant font-label-caps-sm uppercase text-[9.5px]">Certificate Serial No:</span>
+              <span id="bondSerialNo" class="font-mono font-bold text-primary">JRJ-SGB-2026-4819</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-on-surface-variant font-label-caps-sm uppercase text-[9.5px]">Patron Name:</span>
+              <strong id="bondPatronName" class="font-serif text-primary">Smt. Radhika Singhania</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-on-surface-variant font-label-caps-sm uppercase text-[9.5px]">Monthly Installment:</span>
+              <span id="bondMonthlyAmount" class="font-price-numeral font-bold text-primary">₹25,000</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-on-surface-variant font-label-caps-sm uppercase text-[9.5px]">11th Month Royalty Bonus:</span>
+              <span id="bondBonusAmount" class="font-price-numeral font-bold text-secondary">+₹25,000</span>
+            </div>
+            <div class="flex justify-between border-t border-outline-variant/30 pt-1.5 mt-0.5">
+              <span class="font-bold text-primary">Maturity Purchasing Value:</span>
+              <strong id="bondTotalMaturity" class="font-price-numeral text-sm font-bold text-emerald-700">₹2,75,000</strong>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-2 border-t border-dashed border-outline-variant/50 flex justify-between items-end text-[9px] text-on-surface-variant">
+            <span>Redeemable across 18 JRJ Flagships</span>
+            <span class="font-serif italic font-bold text-primary">Jogaram Ramuram &amp; Sons</span>
+          </div>
+        </div>
+
+        <div class="w-full flex gap-2">
+          <button onclick="window.print()" class="flex-1 py-2.5 bg-secondary text-on-secondary rounded font-label-caps-sm uppercase tracking-wider font-bold text-xs flex items-center justify-center gap-1 btn-3d">
+            <span class="material-symbols-outlined text-[16px]">print</span>
+            <span>Print Bond</span>
+          </button>
+          <button onclick="closeSwarnaNidhiModal()" class="flex-1 py-2.5 bg-primary text-on-primary rounded font-label-caps-sm uppercase tracking-wider font-bold text-xs">
+            Done
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 7D. OFFICIAL TAX INVOICE PRINT SECTION -->
+  <div id="taxInvoicePrintSection" class="hidden">
+    <div style="font-family: 'Playfair Display', serif; max-width: 800px; margin: 0 auto; padding: 20px; border: 2px solid #735c00; background: #fff; color: #2a0006;">
+      <!-- Invoice Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #2a0006; padding-bottom: 15px; margin-bottom: 20px;">
+        <div>
+          <h1 style="margin: 0; font-size: 26px; font-weight: bold; letter-spacing: 1px; color: #2a0006;">JR. JEWELLERS</h1>
+          <p style="margin: 2px 0 0 0; font-size: 11px; font-family: sans-serif; text-transform: uppercase; letter-spacing: 1.5px; color: #735c00;">Jogaram Ramuram &amp; Sons Jewellers • Estd. 1952</p>
+          <p style="margin: 4px 0 0 0; font-size: 11px; font-family: sans-serif; color: #555;">Flagship Salon: 14/B Mehrauli Heritage Corridor &amp; Connaught Place, New Delhi - 110001</p>
+          <p style="margin: 2px 0 0 0; font-size: 10px; font-family: sans-serif; color: #555;">GSTIN: 07AAAPJ5413F1ZQ • BIS Hallmark Reg: HM/2026/DL-916-081 • HSN: 7113</p>
+        </div>
+        <div style="text-align: right; font-family: sans-serif;">
+          <span style="display: inline-block; padding: 4px 10px; background: #2a0006; color: #fed65b; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px;">TAX INVOICE</span>
+          <p style="margin: 6px 0 0 0; font-size: 12px; font-weight: bold;">Invoice: <span id="invNumber">JRJ-INV-2026-9812</span></p>
+          <p style="margin: 2px 0 0 0; font-size: 11px; color: #555;">Date: <span id="invDate">16 Sept 2026</span></p>
+        </div>
+      </div>
+
+      <!-- Patron & Delivery Details -->
+      <div style="display: flex; justify-content: space-between; font-family: sans-serif; font-size: 12px; margin-bottom: 20px; padding: 12px; background: #fbf9f5; border: 1px solid #e0dbd1; border-radius: 6px;">
+        <div style="flex: 1;">
+          <strong style="color: #2a0006; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;">Billed &amp; Delivered To:</strong>
+          <p style="margin: 4px 0 0 0; font-weight: bold; font-size: 14px;" id="invPatronName">Smt. Radhika Singhania</p>
+          <p style="margin: 2px 0 0 0; color: #555;" id="invPatronAddress">Bungalow 4, Golf Links, New Delhi - 110003</p>
+          <p style="margin: 2px 0 0 0; color: #555;">Mobile: <span id="invPatronPhone">+91 98110 52195</span></p>
+        </div>
+        <div style="text-align: right; flex: 1;">
+          <strong style="color: #2a0006; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;">Armoured Logistics Details:</strong>
+          <p style="margin: 4px 0 0 0;">Carrier: <strong style="color: #2a0006;">Brinks India High-Value Escort</strong></p>
+          <p style="margin: 2px 0 0 0; color: #555;">Consignment: <span id="invConsignment" style="font-family: monospace; font-weight: bold;">BRINKS-EXP-4139</span></p>
+          <p style="margin: 2px 0 0 0; color: #047857; font-weight: bold;">100% In-Transit Insurance Verified</p>
+        </div>
+      </div>
+
+      <!-- Itemized Table -->
+      <table style="width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 11px; margin-bottom: 20px;">
+        <thead>
+          <tr style="background: #2a0006; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;">
+            <th style="padding: 8px; text-align: left;">Description of Heirloom</th>
+            <th style="padding: 8px; text-align: center;">Purity</th>
+            <th style="padding: 8px; text-align: center;">Gross Wt</th>
+            <th style="padding: 8px; text-align: center;">Qty</th>
+            <th style="padding: 8px; text-align: right;">Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody id="invItemsTbody">
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 10px 8px;">
+              <strong>Mayurakshi Polki Choker Set</strong><br>
+              <span style="font-size: 10px; color: #666;">22KT BIS 916 Hallmark • Syndicate Polki &amp; Zambian Emeralds</span>
+            </td>
+            <td style="padding: 10px 8px; text-align: center;">22KT 916</td>
+            <td style="padding: 10px 8px; text-align: center;">64.2g</td>
+            <td style="padding: 10px 8px; text-align: center;">1</td>
+            <td style="padding: 10px 8px; text-align: right; font-weight: bold;">₹4,85,000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Summary -->
+      <div style="display: flex; justify-content: flex-end; font-family: sans-serif; font-size: 12px; margin-bottom: 25px;">
+        <div style="width: 280px;">
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; color: #555;">
+            <span>Subtotal:</span>
+            <span id="invSubtotal" style="font-weight: bold; color: #222;">₹4,85,000</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; color: #735c00;">
+            <span>Privilege Discount:</span>
+            <span id="invDiscount">-₹0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; color: #555;">
+            <span>CGST (1.5%):</span>
+            <span id="invCgst">₹7,275</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; color: #555;">
+            <span>SGST (1.5%):</span>
+            <span id="invSgst">₹7,275</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; color: #047857; font-weight: bold;">
+            <span>Armoured Transit Guard:</span>
+            <span>COMPLIMENTARY</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 8px 0; border-top: 2px solid #2a0006; margin-top: 6px; font-size: 15px; font-weight: bold; color: #2a0006;">
+            <span>Grand Total Paid:</span>
+            <span id="invGrandTotal">₹4,99,550</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legal & BIS Certification Note -->
+      <div style="border-top: 1px solid #ccc; padding-top: 12px; display: flex; justify-content: space-between; align-items: flex-end; font-family: sans-serif; font-size: 10px; color: #666;">
+        <div style="max-width: 480px;">
+          <p style="margin: 0;">1. All gold items undergo strict 6-stage fire assay testing and bear genuine BIS 916 / 750 laser hallmark.</p>
+          <p style="margin: 2px 0 0 0;">2. 100% Lifetime Exchange and Buyback guaranteed across all 18 JR. JEWELLERS flagship salons.</p>
+          <p style="margin: 2px 0 0 0;">3. Diamond dossiers certified by International Gemological Institute (IGI / GIA).</p>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 120px; border-bottom: 1px solid #2a0006; margin-bottom: 4px;"></div>
+          <span style="font-weight: bold; color: #2a0006;">Authorized Signatory</span><br>
+          <span>Jogaram Ramuram &amp; Sons</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1575,12 +2173,13 @@
 
   <!-- ==================== JAVASCRIPT LOGIC ==================== -->
   <script>
-    // Product Catalog Database
+    // 1. COMPREHENSIVE PRODUCT CATALOG DATABASE (12 ROYAL HEIRLOOMS)
     const productsDB = [
       {
         id: 0,
         name: "Mayurakshi Polki Choker Set",
         category: "chokers",
+        subcategories: ["necklaces", "polki", "bridal"],
         price: 485000,
         originalPrice: 520000,
         tag: "22KT Gold • Zambian Emeralds",
@@ -1589,6 +2188,7 @@
         stones: "12.8ct Uncut Syndicate Polki & Emeralds",
         goldWeight: "51.4g",
         makingCharge: "₹49,500",
+        badge: "BIS 916",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAJv-3pxNrw_HFkcsU816NDYlgtMq4VHaXCU6sdOLNX3_jyvkAgfcl7HJN17lZhPs9M069BveTSCFJY753aYKeMZypSx5zBLmQuYCNPE3fOj6hRcJ6GgpBpPIzHzGMq3VExeahvKcZO5GXSOWrXBP9YkgghjId9Gs0RyLT2knuWVecVmrj86jGVC8s7kg-nmFbpaEHKBf4BaAEswJDgRjNA55odEk6ugSKEwcq6l7F7ysJQuHGtOiAP",
         description: "Regal Rajputana polki choker featuring intricately hand-strung natural Zambian emerald beads and certified uncut diamonds set in 22KT antique gold foil."
       },
@@ -1596,6 +2196,7 @@
         id: 1,
         name: "Devangana Antique Gold Jhumkas",
         category: "jhumkas",
+        subcategories: ["earrings", "gold"],
         price: 142500,
         originalPrice: 155000,
         tag: "22KT Antique Nakshi Gold",
@@ -1604,6 +2205,7 @@
         stones: "Natural Basra Seed Pearls",
         goldWeight: "21.4g",
         makingCharge: "₹16,100",
+        badge: "Bestseller",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDoVZ7WlQ9vgIHm7Rgr8i6W9qau76BF26OMl_VkPhkEaj1FwJwHPQLBnVIx8q3EQZu9LcY5ycrofAgsBZuCzrEnIIKaT3Pls0yqwp8W8wQHRRaOktZArSObyM9L4eA9XUgNFqGy0k0hBs9iH8Op3ema3LUd_De6wsWsX_-Z-EWR4j5fKTlcpovINU0xykLllM469VswLS9dExbZ70ExOUlIkMFZW86sF-6cZewKCZVooZNEeAW2vW6S",
         description: "Masterpiece temple jhumkas sculpted in deep relief Nakshi work, adorned with dancing peacocks and delicate South Sea seed pearl tassels."
       },
@@ -1611,6 +2213,7 @@
         id: 2,
         name: "The Empress Solitaire Ring 1.5ct",
         category: "solitaires",
+        subcategories: ["rings", "diamond"],
         price: 320000,
         originalPrice: 345000,
         tag: "18KT Gold • F-VVS1 Diamond",
@@ -1619,13 +2222,15 @@
         stones: "1.50ct Round Brilliant Solitaire (F / VVS1)",
         goldWeight: "4.5g",
         makingCharge: "₹18,000",
+        badge: "IGI Certified",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDsXnfpo3HVypy4pbsJQwxOnNvSdpti-iEZ9HeRFYctkOVc4G2dxQmmWMSSHD6nXr1_Ry9iUF8d1lm0KtZNP07YAKik6VXlcTtyZgVNAjSU3hkZgso_9SKKBw4grFw9MWUVHa2ic_8kL_VJzvl7Ha4Xj5HLOLjsflIHbmWwvc8I5I1eAFJXtqUwt1py6WrEzp6lfuWPxzfoRyarrI8TlbAI6VHjmgGsNuOpjLRyYtPJ5sUdPTzl9eM1",
         description: "Crown-set solitaire engagement ring mounted in pure sovereign yellow gold with platinum prong accents. Certified by International Gemological Institute."
       },
       {
         id: 3,
-        name: "Padmavati Kundan Bridal Haar",
+        name: "Padmavati Kundan Bridal Rani Haar",
         category: "haars",
+        subcategories: ["necklaces", "bridal", "polki"],
         price: 795000,
         originalPrice: 840000,
         tag: "Syndicate Uncut Diamonds • 22K",
@@ -1634,21 +2239,186 @@
         stones: "24.5ct Syndicate Polki & Rubies",
         goldWeight: "88.0g",
         makingCharge: "₹82,000",
+        badge: "Royal Masterpiece",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBQ4dXLbJOplg9R0AsLaatLAAHF3SMiiXtTdqlErfEgYA4kocMKe_a74528mUlGSo4qpQP8m0lyyuqC8B3xj5NttF3wGv5S9bYSmSf0LzfhxZobg7OCVSikWu8CFIRN4emLk4e5Fb-sc-RIXMFKU29ymWnrf3sIk1hmEIUAO93smIMCIrBWGHlOCUc6ix6ZbDZj9IhHQlnja_VMG4ug0AFY49hkvce3BGGwBO6hy75z7OHLEJkk6_Mt",
         description: "Heirloom multi-strand bridal rani haar featuring hand-enamelled red Meenakari reverse work and syndicate uncut polki diamonds fit for royal wedding trousseaus."
+      },
+      {
+        id: 4,
+        name: "Rajmata Meenakari Kada Bangle Set",
+        category: "bangles",
+        subcategories: ["bangles", "gold", "bridal"],
+        price: 385000,
+        originalPrice: 410000,
+        tag: "22KT Gold • Handcrafted Enamel",
+        purity: "22KT BIS 916 Hallmark",
+        grossWeight: "52.8g",
+        stones: "Natural Burmese Ruby Accents",
+        goldWeight: "50.2g",
+        makingCharge: "₹38,000",
+        badge: "Jaipur Meenakari",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBOQoCACMEaMNTUEmqlEleOOZ2e3VGm6W4dvtcDG6MXUrqdIn8nb-BD-hy3rQB-OC1vlyVVXssBbdAw66AyopdMKPmHbp0UZMuTliqfg_R7VRrSCiRR8wDOmhqGZoXs9VQEe_Ctl6w95faISTIEf6512c_yonHquvggpWkFdhgfXCfs-0gRbcfgbQjv47vPeW8H-Fs0ivOgJ11-5OG_Y4USEDaYi7eQeBm5WvPSrLI2bB3ZL66oZllb",
+        description: "Sovereign royal kadas featuring handcrafted Jaipur red-green meenakari and screw-clasp fastening with floral relief motifs."
+      },
+      {
+        id: 5,
+        name: "Mangalya Pavé Diamond Mangalsutra",
+        category: "mangalsutra",
+        subcategories: ["mangalsutra", "gold", "diamond", "daily"],
+        price: 118000,
+        originalPrice: 128000,
+        tag: "18KT Gold • EF-VVS Diamonds",
+        purity: "18KT BIS 750 Hallmark",
+        grossWeight: "12.4g",
+        stones: "0.85ct EF-VVS Natural Diamonds",
+        goldWeight: "11.2g",
+        makingCharge: "₹14,500",
+        badge: "Daily Luxury",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBqJ3aWHEDMQfE9U3us-2TqRWVgm2rN70kW1GaVTnf9uvgtjTpfbcP5Buw2qteyqulJ2DHjYGfW-KlicUjP81QkuHYy7XX7-yruoVEpuesRgHkRLH6REOqTtZknQMQIvEloU4pZ1PU7eUMFqFJ6K2oqcgQ0IXCZhdV2UT9nItB65pvW5OS4LRBG1pNyaAIxs3lpYlh4T_w1LFGAO8vgzpfP4hOFb1aZC3hqLn99PVWNM6X5BZ_49ajG",
+        description: "Sacred black onyx bead chain crafted with an auspicious twin-cup motif encrusted with round brilliant cut pavé diamonds."
+      },
+      {
+        id: 6,
+        name: "Sovereign 24KT Lakshmi Gold Coin 50g",
+        category: "coins",
+        subcategories: ["coins", "gold"],
+        price: 395000,
+        originalPrice: 405000,
+        tag: "24KT 999.9 Purity • Tamper-proof Blister",
+        purity: "24KT 999.9 Certified Fine Gold",
+        grossWeight: "50.0g",
+        stones: "N/A (Zero Loss Assay Certified)",
+        goldWeight: "50.0g",
+        makingCharge: "₹7,500",
+        badge: "999.9 Pure",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuACjjwKcPvjWOcr_DKotuHabkczzftuHEjQjFlyFpk5rvT8K59EbFjIBlRNGJHeR22mipf_3sjiH1hy_RQyqRRgGs82AF9XXNu8P9kky64a_q_XfT2rBDUBAhiJyiZj-4S-bki_Z2DyxkyLSVsrtN9iqM6U6Ki1WoiphtKZIZCPNplN-_DEVW5KiSWrFXWCRb1I8cqbxe2GFDzODSnlQ-bJzh6-eee6mwMb__N88z-mDb0HVErWgCjo",
+        description: "Investment-grade 24 Karat pure gold medallion minted with Goddess Lakshmi & Lord Ganesha motifs, certified under tamper-proof serialised assay card."
+      },
+      {
+        id: 7,
+        name: "Maharaja Royal Emerald Kalgi Brooch",
+        category: "mens",
+        subcategories: ["mens", "polki", "gold"],
+        price: 285000,
+        originalPrice: 310000,
+        tag: "22KT Gold • Zambian Emerald Drops",
+        purity: "22KT BIS 916 Hallmark",
+        grossWeight: "36.5g",
+        stones: "9.2ct Colombian Emeralds & Syndicate Polki",
+        goldWeight: "28.0g",
+        makingCharge: "₹32,000",
+        badge: "Royal Groom",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAw5Un0T0TUxh5qJKUZDDdZdE5TkCSAfvauF9bPtJBQ6GcSAoagCdQKcVWIrF0UENKRRyrdZlyv9M2_KtY7QwOfcv80mRlviaMnXFOZMeZxlI1Thf8WdcyMHnCz3l6XgtEMDHYQL-mE5uxNwzWQbuCIr7PTYLLtiEbOLp7CGIetfmO0YrMLDAGRnw-8Zp56unTIRgljVXYPR4g4khnWxEUcqei-N3TXZW9_BlePakDgVpx8oM3c_8ER",
+        description: "Imperial ceremonial turban kalgi and regal sherwani brooch set with cabochon emerald drops and natural diamond polki."
+      },
+      {
+        id: 8,
+        name: "Chandrakala Diamond & Pearl Nath",
+        category: "nosepins",
+        subcategories: ["nosepins", "diamond", "bridal"],
+        price: 68000,
+        originalPrice: 75000,
+        tag: "18KT Gold • Natural Basra Pearl",
+        purity: "18KT BIS 750 Hallmark",
+        grossWeight: "6.2g",
+        stones: "0.45ct Round Brilliant Diamonds & Seed Pearl",
+        goldWeight: "5.5g",
+        makingCharge: "₹9,000",
+        badge: "Bridal Nath",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAuRw1YWDjuKumjGb5-IRGWKV6aMXhLruq0M-WbQSzwzBMLPsiLIxEZu1IW4Rn5RH6HPirQ_kt8x5plbNjVVF6bskn4QXAif9s8OobHTAntDNv3_lNDRujm1tobdNykIfkD_602CuyNR3rjJK6F3Gxi6c7CKNoc7fwZSzVTn1E5gwQC5KaU-luHg4zT_35qWF1BvKFKe3dOGXB4NekCK40iQCkQNW3InJqBiXtei7lZolq8O1_7-9tK",
+        description: "Traditional crescent bridal nath with delicate pearl tassel chain, designed for effortless elegance on auspicious wedding occasions."
+      },
+      {
+        id: 9,
+        name: "Aura of Avadh Jadau Polki Choker",
+        category: "chokers",
+        subcategories: ["necklaces", "polki"],
+        price: 640000,
+        originalPrice: 690000,
+        tag: "22KT Gold • Rare Basra Pearls",
+        purity: "22KT BIS 916 Hallmark",
+        grossWeight: "84.1g",
+        stones: "18.4ct Syndicate Polki",
+        goldWeight: "67.0g",
+        makingCharge: "₹65,000",
+        badge: "Court Heirloom",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBIUryg81LONj44M3QLnjbs71RYUGdcEvpG0GbdSKB2OnXcEfSXf5ePu0wAOSZImZD_dj4t8Yeg5qPpaRak5iLVR6TsHlW-Z-np1mYNN27azCDSfbGp_7Pl4gFsZnKSxIuVBHuSghHMVZe8fm5qckP8_nB5PeEmD-6aJab2YnT7gupX_ucFl6mcAtP7Yubb6J0j3_jasPraBvBP4MJlgk_TS9qzLIAeDqTPFSF3ra_5qhRIWxlu6Yi9",
+        description: "Generational Jadau polki embedded with rare natural Basra seed pearls from historic royal courts of Awadh."
+      },
+      {
+        id: 10,
+        name: "Dharohar Temple Gold Haar",
+        category: "haars",
+        subcategories: ["gold", "haars", "necklaces"],
+        price: 540000,
+        originalPrice: 580000,
+        tag: "22KT Nakshi Gold • Temple Craft",
+        purity: "22KT BIS 916 Hallmark",
+        grossWeight: "78.0g",
+        stones: "Natural Unheated Rubies",
+        goldWeight: "75.2g",
+        makingCharge: "₹52,000",
+        badge: "Temple Nakshi",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA496BWZBbIPJIN644s__ccW3Jb7Un2U2nN_e9oJz-FFwHojf5TnqIbYaYmjEVPS8r0W4X3RQGvJcMKgvfNLFSTL_2eijFPNBuKdeYgQkAKlU0CsS7nOBdqh4HXV2e1tNdC-97kijUFOuRFggAPgmZ1sli4Uy-nf2ub3Epluq14CzrsUN-nM0lMf1etu8EY21zqhrJQOUW-MSlFcM_aJBKPEF4g2uxwRimqFyhDb6xGzTi1WyO6il2j",
+        description: "Timeless temple jewellery in solid 22KT antique nakshi work, honoring sacred Indian iconography with hand-carved deity motifs."
+      },
+      {
+        id: 11,
+        name: "Starlight Solitaire Pavé Ring",
+        category: "solitaires",
+        subcategories: ["rings", "diamond"],
+        price: 275000,
+        originalPrice: 295000,
+        tag: "18KT White Gold • 1.2ct Diamond",
+        purity: "18KT Sovereign Platinum & Gold",
+        grossWeight: "4.2g",
+        stones: "1.20ct Cushion Cut Solitaire (E / VVS1)",
+        goldWeight: "3.9g",
+        makingCharge: "₹19,000",
+        badge: "E-VVS1 Diamond",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBGKL2ErFFrI5GiO5IksQtOxxYBav2hK19JVISPKJH20NwMDj3lQQEs2GHDGyEuPOu8ymwvyr8l2as2exFVdWwmk3a9gzqb8utS9l-yF6y8R8iOG2vMdmMHJuJ6sqkEs76AaHnEGoox8sXM7deLyFWjprsTGU-VV75cnJ3d6zTQLMltYpV-ILLcO_hnrxliQzX-O8sRY8dPWVlBFBA0vr6545N0nOcYaIDqlvs9iu0JjBDItfOKafHj",
+        description: "Cushion cut solitaire surrounded by micro-pavé diamonds on a tapering platinum band, radiating unmatched royal brilliance."
       }
     ];
 
-    // State Variables
-    let cart = [
-      { product: productsDB[0], quantity: 1 }
-    ];
+    // 2. STATE INITIALIZATION WITH LOCALSTORAGE SYNC
+    let cart = [];
+    try {
+      const savedCart = localStorage.getItem('jrj_cart');
+      if (savedCart) {
+        cart = JSON.parse(savedCart);
+      } else {
+        cart = [{ product: productsDB[0], quantity: 1 }];
+      }
+    } catch(e) {
+      cart = [{ product: productsDB[0], quantity: 1 }];
+    }
+
     let wishlist = [0, 2];
+    try {
+      const savedWishlist = localStorage.getItem('jrj_wishlist');
+      if (savedWishlist) {
+        wishlist = JSON.parse(savedWishlist);
+      }
+    } catch(e) {}
+
     let discountApplied = 0;
+    let appliedCouponCode = '';
+    let currentCategoryFilter = 'all';
+    let selectedPaymentMode = 'upi';
+    let checkoutAddressData = {};
 
     const formatINR = (val) => '₹' + Number(val).toLocaleString('en-IN');
 
-    // Toast Notifications
+    function saveCartToStorage() {
+      try { localStorage.setItem('jrj_cart', JSON.stringify(cart)); } catch(e) {}
+    }
+
+    function saveWishlistToStorage() {
+      try { localStorage.setItem('jrj_wishlist', JSON.stringify(wishlist)); } catch(e) {}
+    }
+
+    // 3. TOAST NOTIFICATIONS
     function showToast(msg, icon = 'check_circle') {
       const toast = document.getElementById('toastNotification');
       const toastMsg = document.getElementById('toastMessage');
@@ -1666,7 +2436,152 @@
       }, 3500);
     }
 
-    // Cart Management
+    // 4. DYNAMIC PRODUCT CATALOG RENDERING
+    function isProductMatchCategory(prod, cat) {
+      if (cat === 'all') return true;
+      const c = cat.toLowerCase();
+      if (prod.category.toLowerCase() === c) return true;
+      if (prod.subcategories && prod.subcategories.map(s => s.toLowerCase()).includes(c)) return true;
+      if (prod.tag.toLowerCase().includes(c)) return true;
+      if (prod.name.toLowerCase().includes(c)) return true;
+      return false;
+    }
+
+    function renderProducts(category = 'all', searchQuery = '') {
+      currentCategoryFilter = category;
+      const grid = document.getElementById('productGrid');
+      const statusCountText = document.getElementById('catalogCountText');
+      const activeFilterBadge = document.getElementById('activeFilterBadge');
+      const activeFilterLabel = document.getElementById('activeFilterLabel');
+
+      if (!grid) return;
+
+      let filtered = productsDB.filter(p => isProductMatchCategory(p, category));
+
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase().trim();
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(q) || 
+          p.tag.toLowerCase().includes(q) || 
+          p.description.toLowerCase().includes(q) ||
+          p.purity.toLowerCase().includes(q)
+        );
+      }
+
+      // Update Pill Visual States
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        const pillCat = btn.getAttribute('data-cat') || '';
+        if (pillCat === category && !searchQuery) {
+          btn.classList.remove('bg-surface-container', 'text-on-surface');
+          btn.classList.add('bg-primary', 'text-on-primary', 'font-semibold');
+        } else {
+          btn.classList.remove('bg-primary', 'text-on-primary', 'font-semibold');
+          btn.classList.add('bg-surface-container', 'text-on-surface');
+        }
+      });
+
+      // Update Filter Badge Indicator
+      if (category !== 'all' || searchQuery) {
+        if (activeFilterBadge && activeFilterLabel) {
+          activeFilterLabel.textContent = searchQuery ? `"${searchQuery}"` : category.toUpperCase();
+          activeFilterBadge.classList.remove('hidden');
+        }
+      } else {
+        if (activeFilterBadge) activeFilterBadge.classList.add('hidden');
+      }
+
+      // Update Count Display
+      if (statusCountText) {
+        if (searchQuery) {
+          statusCountText.textContent = `Found ${filtered.length} Heirloom${filtered.length === 1 ? '' : 's'} for "${searchQuery}"`;
+        } else if (category === 'all') {
+          statusCountText.textContent = `Displaying ${filtered.length} Certified Royal Heirlooms`;
+        } else {
+          statusCountText.textContent = `Showing ${filtered.length} ${category.toUpperCase()} Pieces`;
+        }
+      }
+
+      // Empty State Handling
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center flex flex-col items-center justify-center">
+            <span class="material-symbols-outlined text-outline text-5xl mb-2">gem</span>
+            <h3 class="font-headline-sm text-primary font-serif text-lg">Curating Royal Heirlooms</h3>
+            <p class="font-body-sm text-on-surface-variant text-xs mt-1 max-w-sm">No items currently match your criteria. Our master karigars are handcrafting new signature pieces.</p>
+            <button onclick="filterCategory('all')" class="mt-4 px-5 py-2 bg-primary text-on-primary rounded font-label-caps-sm text-xs uppercase tracking-wider font-bold btn-3d">Discover All Heirlooms</button>
+          </div>
+        `;
+        return;
+      }
+
+      // Render Cards
+      grid.innerHTML = filtered.map(prod => {
+        const isWishlisted = wishlist.includes(prod.id);
+        return `
+          <div data-category="${prod.category}" class="product-item group bg-surface-container-lowest rounded-xl overflow-hidden card-3d-bevel flex flex-col justify-between border border-outline-variant/40 preserve-3d">
+            <div class="relative w-full aspect-[4/5] bg-surface-container overflow-hidden cursor-pointer" onclick="openProductQuickView(${prod.id})">
+              <img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out" alt="${prod.name}" src="${prod.image}" loading="lazy">
+              
+              <button onclick="event.stopPropagation(); toggleWishlist(${prod.id})" aria-label="Add to Wishlist" class="wishlist-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-surface/90 backdrop-blur-md ${isWishlisted ? 'text-error' : 'text-primary'} hover:text-error flex items-center justify-center transition-all duration-200 shadow-md active:scale-90">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' ${isWishlisted ? 1 : 0};">favorite</span>
+              </button>
+
+              <div class="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-center gap-1.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300">
+                <button onclick="event.stopPropagation(); openAppointmentModal('Live Video Call for ${prod.name}')" class="flex-1 py-1.5 sm:py-2 bg-primary/95 backdrop-blur-md text-on-primary text-[9.5px] sm:text-[10px] rounded uppercase font-semibold shadow-lg active:scale-95 flex items-center justify-center gap-1 border border-secondary-fixed/30">
+                  <span class="material-symbols-outlined text-[13px]">videocam</span>
+                  <span>Live Video</span>
+                </button>
+                <button onclick="event.stopPropagation(); openAppointmentModal('At-Home Trial for ${prod.name}')" class="flex-1 py-1.5 sm:py-2 bg-surface/95 backdrop-blur-md text-primary text-[9.5px] sm:text-[10px] rounded uppercase font-semibold shadow-lg active:scale-95 flex items-center justify-center gap-1 border border-outline-variant">
+                  <span class="material-symbols-outlined text-[13px]">home_pin</span>
+                  <span>Try at Home</span>
+                </button>
+              </div>
+
+              <span class="absolute top-3 left-3 bg-secondary-fixed text-primary font-label-caps-sm text-[9.5px] sm:text-[10px] font-bold px-2 py-0.5 rounded shadow-sm shimmer-badge">${prod.badge || 'BIS 916'}</span>
+            </div>
+
+            <div class="p-3.5 sm:p-space-md flex flex-col flex-1 justify-between bg-surface-container-lowest">
+              <div>
+                <span class="font-label-caps-sm text-[9.5px] sm:text-[10px] text-secondary uppercase tracking-widest font-semibold block">${prod.tag}</span>
+                <h3 onclick="openProductQuickView(${prod.id})" class="font-headline-sm text-base sm:text-headline-sm font-serif text-primary mt-1 group-hover:text-secondary transition-colors line-clamp-1 cursor-pointer">
+                  ${prod.name}
+                </h3>
+                <div class="flex items-center gap-2 mt-1.5">
+                  <span class="font-price-numeral text-lg sm:text-price-numeral text-primary font-bold">${formatINR(prod.price)}</span>
+                  <span class="font-body-sm text-xs text-outline line-through">${formatINR(prod.originalPrice)}</span>
+                </div>
+                <div class="mt-2 p-2 bg-surface-container-low/80 rounded text-[10.5px] sm:text-[11px] font-body-sm text-on-surface-variant flex items-center justify-between border border-outline-variant/20">
+                  <span>Gross: ${prod.grossWeight}</span>
+                  <span class="text-secondary font-bold cursor-pointer hover:underline" onclick="showPriceBreakdown(${prod.id})">Breakdown</span>
+                </div>
+              </div>
+
+              <div class="pt-3 sm:pt-space-md mt-auto">
+                <button onclick="addToCart(${prod.id})" class="w-full py-2.5 bg-gradient-to-r from-primary via-primary-container to-primary text-on-primary rounded font-label-caps-sm text-xs uppercase tracking-wider btn-3d flex items-center justify-center gap-2 border border-secondary-fixed/20 active:scale-95">
+                  <span class="material-symbols-outlined text-[16px]">shopping_bag</span>
+                  <span>Add to Bag</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterProducts(category, pillBtn) {
+      renderProducts(category);
+    }
+
+    function filterCategory(cat) {
+      const bestsellers = document.getElementById('bestsellers-section');
+      if (bestsellers) {
+        bestsellers.scrollIntoView({ behavior: 'smooth' });
+      }
+      renderProducts(cat);
+      showToast(`Browsing ${cat.toUpperCase()} Heirlooms`);
+    }
+
+    // 5. CART MANAGEMENT
     function renderCart() {
       const container = document.getElementById('cartItemsContainer');
       const badge = document.getElementById('cartBadge');
@@ -1690,9 +2605,9 @@
             <button onclick="closeCartDrawer()" class="mt-3.5 px-4 py-1.5 bg-primary text-on-primary rounded text-[11px] font-label-caps-sm uppercase tracking-wider font-bold">Discover Jewels</button>
           </div>
         `;
-        subtotalEl.textContent = "₹0";
-        taxEl.textContent = "₹0";
-        totalEl.textContent = "₹0";
+        if (subtotalEl) subtotalEl.textContent = "₹0";
+        if (taxEl) taxEl.textContent = "₹0";
+        if (totalEl) totalEl.textContent = "₹0";
         return;
       }
 
@@ -1715,7 +2630,7 @@
                   <span class="px-2 text-xs font-semibold">${item.quantity}</span>
                   <button onclick="updateCartQuantity(${index}, 1)" class="px-2 py-0.5 text-primary hover:bg-surface-container">+</button>
                 </div>
-                <button onclick="removeFromCart(${index})" class="text-on-surface-variant hover:text-error text-xs flex items-center gap-0.5 p-1">
+                <button onclick="removeFromCart(${index})" class="text-on-surface-variant hover:text-error text-xs flex items-center gap-0.5 p-1" aria-label="Remove item">
                   <span class="material-symbols-outlined text-[16px]">delete</span>
                 </button>
               </div>
@@ -1725,22 +2640,25 @@
       }).join('');
 
       const netSubtotal = Math.max(0, subtotal - discountApplied);
-      const tax = Math.round(netSubtotal * 0.03); // 3% GST on bullion
+      const tax = Math.round(netSubtotal * 0.03); // 3% GST
       const total = netSubtotal + tax;
 
-      subtotalEl.textContent = formatINR(subtotal) + (discountApplied > 0 ? ` (-${formatINR(discountApplied)})` : '');
-      taxEl.textContent = formatINR(tax);
-      totalEl.textContent = formatINR(total);
+      if (subtotalEl) subtotalEl.textContent = formatINR(subtotal) + (discountApplied > 0 ? ` (-${formatINR(discountApplied)})` : '');
+      if (taxEl) taxEl.textContent = formatINR(tax);
+      if (totalEl) totalEl.textContent = formatINR(total);
     }
 
     function addToCart(productId) {
-      const product = productsDB[productId];
-      const existing = cart.find(item => item.product.id === productId);
+      const product = productsDB.find(p => p.id === productId) || productsDB[productId];
+      if (!product) return;
+
+      const existing = cart.find(item => item.product.id === product.id);
       if (existing) {
         existing.quantity += 1;
       } else {
         cart.push({ product, quantity: 1 });
       }
+      saveCartToStorage();
       renderCart();
       showToast(`Added "${product.name}" to Bag`);
       openCartDrawer();
@@ -1752,12 +2670,14 @@
       if (cart[index].quantity <= 0) {
         cart.splice(index, 1);
       }
+      saveCartToStorage();
       renderCart();
     }
 
     function removeFromCart(index) {
       if (cart[index]) {
         cart.splice(index, 1);
+        saveCartToStorage();
         renderCart();
         showToast(`Removed from Bag`);
       }
@@ -1768,7 +2688,18 @@
       const code = input ? input.value.trim().toUpperCase() : '';
       if (code === 'ROYAL2025' || code === 'JR2025') {
         discountApplied = 15000;
+        appliedCouponCode = code;
         showToast(`Voucher Applied: ₹15,000 Luxury Savings!`, 'verified');
+        renderCart();
+      } else if (code === 'SHREE108') {
+        discountApplied = 10800;
+        appliedCouponCode = code;
+        showToast(`Festive Voucher Applied: ₹10,800 Off!`, 'verified');
+        renderCart();
+      } else if (code === 'FIRSTLUX') {
+        discountApplied = 5000;
+        appliedCouponCode = code;
+        showToast(`Welcome Voucher: ₹5,000 Off!`, 'verified');
         renderCart();
       } else if (code) {
         showToast(`Invalid voucher. Try 'ROYAL2025'`, 'error');
@@ -1784,7 +2715,7 @@
       document.getElementById('cartDrawer').classList.add('hidden');
     }
 
-    // Wishlist Management
+    // 6. WISHLIST MANAGEMENT
     function renderWishlist() {
       const container = document.getElementById('wishlistItemsContainer');
       const badge = document.getElementById('wishlistBadge');
@@ -1806,7 +2737,8 @@
       }
 
       container.innerHTML = wishlist.map(id => {
-        const prod = productsDB[id];
+        const prod = productsDB.find(p => p.id === id);
+        if (!prod) return '';
         return `
           <div class="flex gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/30">
             <img src="${prod.image}" alt="${prod.name}" class="w-16 h-20 sm:w-20 sm:h-24 object-cover rounded bg-surface-container">
@@ -1830,31 +2762,17 @@
 
     function toggleWishlist(productId) {
       const idx = wishlist.indexOf(productId);
-      const prod = productsDB[productId];
+      const prod = productsDB.find(p => p.id === productId);
       if (idx > -1) {
         wishlist.splice(idx, 1);
         showToast(`Removed from Wishlist`);
       } else {
         wishlist.push(productId);
-        showToast(`Saved "${prod.name}" to Wishlist`, 'favorite');
+        showToast(`Saved "${prod ? prod.name : 'Jewel'}" to Wishlist`, 'favorite');
       }
+      saveWishlistToStorage();
       renderWishlist();
-      updateWishlistButtons();
-    }
-
-    function updateWishlistButtons() {
-      document.querySelectorAll('.wishlist-btn').forEach((btn, index) => {
-        const icon = btn.querySelector('.material-symbols-outlined');
-        if (icon) {
-          if (wishlist.includes(index)) {
-            icon.style.fontVariationSettings = "'FILL' 1";
-            btn.classList.add('text-error');
-          } else {
-            icon.style.fontVariationSettings = "'FILL' 0";
-            btn.classList.remove('text-error');
-          }
-        }
-      });
+      renderProducts(currentCategoryFilter);
     }
 
     function openWishlistDrawer() {
@@ -1866,9 +2784,9 @@
       document.getElementById('wishlistDrawer').classList.add('hidden');
     }
 
-    // Product Quick View Modal
+    // 7. PRODUCT QUICK VIEW MODAL
     function openProductQuickView(productId) {
-      const prod = productsDB[productId];
+      const prod = productsDB.find(p => p.id === productId);
       if (!prod) return;
 
       document.getElementById('quickViewImage').src = prod.image;
@@ -1887,7 +2805,7 @@
       const videoBtn = document.getElementById('quickViewVideoCallBtn');
       videoBtn.onclick = () => {
         closeProductQuickView();
-        openAppointmentModal(`Inspection for ${prod.name}`);
+        openAppointmentModal(`Live Inspection for ${prod.name}`);
       };
 
       document.getElementById('quickViewModal').classList.remove('hidden');
@@ -1898,11 +2816,339 @@
     }
 
     function showPriceBreakdown(productId) {
-      const prod = productsDB[productId];
-      alert(`Value Breakdown for ${prod.name}:\n• Purity: ${prod.purity}\n• Net Gold Weight: ${prod.goldWeight}\n• Making & Karigari: ${prod.makingCharge}\n• Certified Gems: ${prod.stones}\n• 100% Lifetime Exchange Guaranteed`);
+      const prod = productsDB.find(p => p.id === productId);
+      if (!prod) return;
+      alert(`Value Breakdown for ${prod.name}:\n• Purity: ${prod.purity}\n• Net Gold Weight: ${prod.goldWeight}\n• Making & Karigari: ${prod.makingCharge}\n• Certified Stones: ${prod.stones}\n• 100% Lifetime Exchange Guaranteed across all 18 JR. JEWELLERS Salons`);
     }
 
-    // Appointment Booking Modal
+    // 8. SOVEREIGN 3-STEP CHECKOUT SYSTEM
+    function calculateCartTotals() {
+      const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+      const netSubtotal = Math.max(0, subtotal - discountApplied);
+      const tax = Math.round(netSubtotal * 0.03);
+      const total = netSubtotal + tax;
+      return { subtotal, discount: discountApplied, tax, total };
+    }
+
+    function openCheckoutModal() {
+      if (cart.length === 0) {
+        showToast('Your Royal Bag is empty! Please select heirlooms first.', 'error');
+        return;
+      }
+      closeCartDrawer();
+      const totals = calculateCartTotals();
+
+      // Set Step 1
+      document.getElementById('checkoutStep1').classList.remove('hidden');
+      document.getElementById('checkoutStep2').classList.add('hidden');
+      document.getElementById('checkoutStep3').classList.add('hidden');
+      
+      // Update Stepper Badges
+      updateStepBadges(1);
+
+      // Pre-fill total in Step 1
+      document.getElementById('step1TotalText').textContent = formatINR(totals.total);
+
+      // Auto-fill saved pincode if exists
+      const savedPin = localStorage.getItem('jrj_pincode') || '110001';
+      const pinInput = document.getElementById('checkoutPincode');
+      if (pinInput && !pinInput.value) {
+        pinInput.value = savedPin;
+        autoFillPincode(savedPin);
+      }
+
+      document.getElementById('checkoutModal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    function updateStepBadges(step) {
+      const b1 = document.getElementById('stepBadge1');
+      const b2 = document.getElementById('stepBadge2');
+      const b3 = document.getElementById('stepBadge3');
+      
+      [b1, b2, b3].forEach(b => {
+        b.className = 'w-6 h-6 rounded-full bg-surface-container text-on-surface-variant text-xs font-bold flex items-center justify-center';
+      });
+
+      if (step === 1) {
+        b1.className = 'w-6 h-6 rounded-full bg-primary text-on-primary text-xs font-bold flex items-center justify-center';
+      } else if (step === 2) {
+        b1.className = 'w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center';
+        b1.textContent = '✓';
+        b2.className = 'w-6 h-6 rounded-full bg-primary text-on-primary text-xs font-bold flex items-center justify-center';
+      } else if (step === 3) {
+        b1.className = 'w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center';
+        b1.textContent = '✓';
+        b2.className = 'w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center';
+        b2.textContent = '✓';
+        b3.className = 'w-6 h-6 rounded-full bg-primary text-on-primary text-xs font-bold flex items-center justify-center';
+      }
+    }
+
+    function autoFillPincode(pin) {
+      if (pin.length !== 6) return;
+      const cityInput = document.getElementById('checkoutCity');
+      const stateInput = document.getElementById('checkoutState');
+      
+      const pinMap = {
+        '110': { city: 'New Delhi', state: 'Delhi' },
+        '400': { city: 'Mumbai', state: 'Maharashtra' },
+        '302': { city: 'Jaipur', state: 'Rajasthan' },
+        '560': { city: 'Bengaluru', state: 'Karnataka' },
+        '700': { city: 'Kolkata', state: 'West Bengal' },
+        '500': { city: 'Hyderabad', state: 'Telangana' },
+        '600': { city: 'Chennai', state: 'Tamil Nadu' },
+        '380': { city: 'Ahmedabad', state: 'Gujarat' },
+        '411': { city: 'Pune', state: 'Maharashtra' },
+        '395': { city: 'Surat', state: 'Gujarat' }
+      };
+
+      const prefix = pin.substring(0, 3);
+      if (pinMap[prefix]) {
+        cityInput.value = pinMap[prefix].city;
+        stateInput.value = pinMap[prefix].state;
+      } else {
+        cityInput.value = 'India Region';
+        stateInput.value = 'State Zone';
+      }
+    }
+
+    function handleAddressSubmit(e) {
+      e.preventDefault();
+      checkoutAddressData = {
+        fullName: document.getElementById('checkoutFullName').value.trim(),
+        phone: document.getElementById('checkoutPhone').value.trim(),
+        email: document.getElementById('checkoutEmail').value.trim(),
+        pincode: document.getElementById('checkoutPincode').value.trim(),
+        address: document.getElementById('checkoutAddress').value.trim(),
+        city: document.getElementById('checkoutCity').value.trim(),
+        state: document.getElementById('checkoutState').value.trim(),
+        slot: document.getElementById('checkoutSlot').value
+      };
+
+      // Save pincode
+      localStorage.setItem('jrj_pincode', checkoutAddressData.pincode);
+
+      // Move to Step 2
+      document.getElementById('checkoutStep1').classList.add('hidden');
+      document.getElementById('checkoutStep2').classList.remove('hidden');
+      updateStepBadges(2);
+
+      // Populate Step 2 summary
+      const totals = calculateCartTotals();
+      document.getElementById('step2Subtotal').textContent = formatINR(totals.subtotal);
+      document.getElementById('step2Discount').textContent = totals.discount > 0 ? `-${formatINR(totals.discount)}` : '₹0';
+      document.getElementById('step2Tax').textContent = formatINR(totals.tax);
+      document.getElementById('step2Total').textContent = formatINR(totals.total);
+
+      // Populate EMI values
+      document.getElementById('emi3Text').textContent = formatINR(Math.round(totals.total / 3)) + ' / mo';
+      document.getElementById('emi6Text').textContent = formatINR(Math.round(totals.total / 6)) + ' / mo';
+      document.getElementById('emi12Text').textContent = formatINR(Math.round(totals.total / 12)) + ' / mo';
+    }
+
+    function prevCheckoutStep() {
+      document.getElementById('checkoutStep2').classList.add('hidden');
+      document.getElementById('checkoutStep1').classList.remove('hidden');
+      updateStepBadges(1);
+    }
+
+    function selectPaymentMethod(mode) {
+      selectedPaymentMode = mode;
+      document.querySelectorAll('.payment-method-btn').forEach(b => {
+        b.className = 'payment-method-btn p-2 rounded-lg border border-outline-variant/50 bg-surface text-on-surface text-[11px] font-medium flex flex-col items-center gap-1';
+      });
+
+      const activeBtn = document.getElementById(`pm-${mode}`);
+      if (activeBtn) {
+        activeBtn.className = 'payment-method-btn p-2 rounded-lg border-2 border-primary bg-primary/5 text-primary text-[11px] font-bold flex flex-col items-center gap-1';
+      }
+
+      ['upi', 'card', 'emi', 'cod'].forEach(m => {
+        const view = document.getElementById(`payment-view-${m}`);
+        if (view) {
+          if (m === mode) view.classList.remove('hidden');
+          else view.classList.add('hidden');
+        }
+      });
+    }
+
+    function verifyUpi() {
+      const val = document.getElementById('upiIdInput').value.trim();
+      if (val && val.includes('@')) {
+        showToast(`UPI ID ${val} Verified! Ready to authorize`, 'verified');
+      } else {
+        showToast('Please enter a valid VPA e.g. name@okhdfcbank', 'error');
+      }
+    }
+
+    function formatCardNumber(input) {
+      let val = input.value.replace(/\D/g, '');
+      val = val.substring(0, 16);
+      const parts = [];
+      for (let i = 0; i < val.length; i += 4) {
+        parts.push(val.substring(i, i + 4));
+      }
+      input.value = parts.join(' ');
+    }
+
+    let lastPlacedOrder = null;
+
+    function placeSovereignOrder() {
+      const totals = calculateCartTotals();
+      const orderRef = 'JRJ-2026-' + Math.floor(1000 + Math.random() * 9000);
+      const consignmentCode = 'BRINKS-EXP-' + Math.floor(1000 + Math.random() * 9000);
+
+      lastPlacedOrder = {
+        orderRef,
+        consignmentCode,
+        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+        items: [...cart],
+        totals,
+        address: { ...checkoutAddressData },
+        paymentMode: selectedPaymentMode.toUpperCase(),
+        status: 'IN ARMOURED TRANSIT'
+      };
+
+      // Save order to localStorage
+      try {
+        const pastOrders = JSON.parse(localStorage.getItem('jrj_orders') || '[]');
+        pastOrders.unshift(lastPlacedOrder);
+        localStorage.setItem('jrj_orders', JSON.stringify(pastOrders));
+      } catch(e) {}
+
+      // Populate Step 3
+      document.getElementById('confirmedOrderRef').textContent = orderRef;
+      document.getElementById('confirmedConsignmentCode').textContent = consignmentCode;
+      document.getElementById('confirmedTotalPaid').textContent = formatINR(totals.total);
+
+      // Populate Official Tax Invoice
+      populateOfficialInvoice(lastPlacedOrder);
+
+      // Clear Cart
+      cart = [];
+      discountApplied = 0;
+      saveCartToStorage();
+      renderCart();
+
+      // Show Step 3
+      document.getElementById('checkoutStep2').classList.add('hidden');
+      document.getElementById('checkoutStep3').classList.remove('hidden');
+      updateStepBadges(3);
+
+      showToast(`Imperial Order ${orderRef} Confirmed!`, 'verified');
+    }
+
+    function populateOfficialInvoice(order) {
+      document.getElementById('invNumber').textContent = order.orderRef;
+      document.getElementById('invDate').textContent = order.date;
+      document.getElementById('invPatronName').textContent = order.address.fullName || 'Royal Patron';
+      document.getElementById('invPatronAddress').textContent = `${order.address.address || 'Flagship'}, ${order.address.city || 'Delhi'} - ${order.address.pincode || '110001'}`;
+      document.getElementById('invPatronPhone').textContent = order.address.phone || '+91 98110 52195';
+      document.getElementById('invConsignment').textContent = order.consignmentCode;
+
+      const tbody = document.getElementById('invItemsTbody');
+      tbody.innerHTML = order.items.map(item => `
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 10px 8px;">
+            <strong>${item.product.name}</strong><br>
+            <span style="font-size: 10px; color: #666;">${item.product.purity} • ${item.product.stones}</span>
+          </td>
+          <td style="padding: 10px 8px; text-align: center;">${item.product.purity.split(' ')[0]}</td>
+          <td style="padding: 10px 8px; text-align: center;">${item.product.grossWeight}</td>
+          <td style="padding: 10px 8px; text-align: center;">${item.quantity}</td>
+          <td style="padding: 10px 8px; text-align: right; font-weight: bold;">${formatINR(item.product.price * item.quantity)}</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('invSubtotal').textContent = formatINR(order.totals.subtotal);
+      document.getElementById('invDiscount').textContent = order.totals.discount > 0 ? `-${formatINR(order.totals.discount)}` : '₹0';
+      const halfTax = Math.round(order.totals.tax / 2);
+      document.getElementById('invCgst').textContent = formatINR(halfTax);
+      document.getElementById('invSgst').textContent = formatINR(halfTax);
+      document.getElementById('invGrandTotal').textContent = formatINR(order.totals.total);
+    }
+
+    function printOfficialTaxInvoice() {
+      window.print();
+    }
+
+    // 9. CONSIGNMENT TRACKING SYSTEM
+    function openTrackOrderModal(refCode = '') {
+      const modal = document.getElementById('trackOrderModal');
+      const input = document.getElementById('trackingSearchInput');
+      if (refCode) {
+        input.value = refCode;
+      } else if (lastPlacedOrder) {
+        input.value = lastPlacedOrder.orderRef;
+      }
+      modal.classList.remove('hidden');
+    }
+
+    function closeTrackOrderModal() {
+      document.getElementById('trackOrderModal').classList.add('hidden');
+    }
+
+    function openTrackOrderModalFromCheckout() {
+      closeCheckoutModal();
+      if (lastPlacedOrder) {
+        openTrackOrderModal(lastPlacedOrder.orderRef);
+      } else {
+        openTrackOrderModal();
+      }
+    }
+
+    function trackOrderSubmit() {
+      const code = document.getElementById('trackingSearchInput').value.trim().toUpperCase();
+      if (!code) {
+        showToast('Please enter an order or consignment code', 'error');
+        return;
+      }
+      showToast(`Consignment ${code} is in transit under armed escort`, 'verified');
+    }
+
+    // 10. SWARNA NIDHI DIGITAL BOND ENROLLMENT
+    function openSwarnaNidhiModal() {
+      const slider = document.getElementById('goldSchemeSlider');
+      const monthly = slider ? parseInt(slider.value, 10) : 25000;
+      const totalMaturity = (monthly * 10) + monthly;
+
+      document.getElementById('swarnaModalMonthlyDisplay').textContent = formatINR(monthly) + ' / mo';
+      document.getElementById('swarnaModalTotalDisplay').textContent = formatINR(totalMaturity);
+
+      document.getElementById('swarnaNidhiFormView').classList.remove('hidden');
+      document.getElementById('swarnaNidhiBondView').classList.add('hidden');
+
+      document.getElementById('swarnaNidhiModal').classList.remove('hidden');
+    }
+
+    function closeSwarnaNidhiModal() {
+      document.getElementById('swarnaNidhiModal').classList.add('hidden');
+    }
+
+    function confirmSwarnaNidhi(e) {
+      e.preventDefault();
+      const slider = document.getElementById('goldSchemeSlider');
+      const monthly = slider ? parseInt(slider.value, 10) : 25000;
+      const patronName = document.getElementById('swarnaPatronName').value.trim();
+      const serial = 'JRJ-SGB-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+      document.getElementById('bondSerialNo').textContent = serial;
+      document.getElementById('bondPatronName').textContent = patronName;
+      document.getElementById('bondMonthlyAmount').textContent = formatINR(monthly);
+      document.getElementById('bondBonusAmount').textContent = '+' + formatINR(monthly);
+      document.getElementById('bondTotalMaturity').textContent = formatINR((monthly * 10) + monthly);
+
+      document.getElementById('swarnaNidhiFormView').classList.add('hidden');
+      document.getElementById('swarnaNidhiBondView').classList.remove('hidden');
+
+      showToast(`Digital Gold Bond ${serial} Generated!`, 'verified');
+    }
+
+    // 11. VIP APPOINTMENT BOOKING
     function openAppointmentModal(type = 'VIP Consultation') {
       const modal = document.getElementById('appointmentModal');
       const title = document.getElementById('appointmentModalTitle');
@@ -1918,10 +3164,10 @@
       e.preventDefault();
       closeAppointmentModal();
       const code = 'JRJ-VIP-' + Math.floor(1000 + Math.random() * 9000);
-      showToast(`Appointment Confirmed (${code})! Concierge will connect shortly.`, 'verified');
+      showToast(`Appointment Confirmed (${code})! Concierge will connect via WhatsApp.`, 'verified');
     }
 
-    // Store Modal
+    // 12. STORE LOCATOR MODAL
     function openStoreModal() {
       document.getElementById('storeModal').classList.remove('hidden');
     }
@@ -1929,7 +3175,7 @@
       document.getElementById('storeModal').classList.add('hidden');
     }
 
-    // Pincode Delivery Check
+    // 13. PINCODE DELIVERY CHECK
     function openPincodeModal() {
       document.getElementById('pincodeModal').classList.remove('hidden');
     }
@@ -1940,6 +3186,7 @@
       const input = document.getElementById('pincodeInput').value.trim();
       const result = document.getElementById('pincodeResult');
       if (input.length === 6 && /^\d+$/.test(input)) {
+        localStorage.setItem('jrj_pincode', input);
         result.innerHTML = `
           <div class="p-2.5 bg-emerald-50 border border-emerald-300 rounded text-emerald-900 flex items-start gap-2 mt-2">
             <span class="material-symbols-outlined text-emerald-700 text-[16px]">verified</span>
@@ -1949,55 +3196,14 @@
             </div>
           </div>
         `;
-        document.getElementById('headerPincodeDisplay').textContent = `PIN: ${input}`;
+        const headerPin = document.getElementById('headerPincodeDisplay');
+        if (headerPin) headerPin.textContent = `PIN: ${input}`;
       } else {
         result.innerHTML = `<span class="text-error text-xs">Please enter a valid 6-digit Indian PIN code.</span>`;
       }
     }
 
-    // Checkout Flow
-    function openCheckoutModal() {
-      closeCartDrawer();
-      const ref = 'JRJ-' + Math.floor(1000 + Math.random() * 9000) + '-IND';
-      document.getElementById('checkoutRefCode').textContent = ref;
-      document.getElementById('checkoutModal').classList.remove('hidden');
-      cart = [];
-      renderCart();
-    }
-    function closeCheckoutModal() {
-      document.getElementById('checkoutModal').classList.add('hidden');
-    }
-
-    // Filter Products by Category Pill
-    function filterProducts(category, pillBtn) {
-      document.querySelectorAll('.filter-pill').forEach(btn => {
-        btn.classList.remove('bg-primary', 'text-on-primary', 'font-semibold');
-        btn.classList.add('bg-surface-container', 'text-on-surface');
-      });
-      if (pillBtn) {
-        pillBtn.classList.remove('bg-surface-container', 'text-on-surface');
-        pillBtn.classList.add('bg-primary', 'text-on-primary', 'font-semibold');
-      }
-
-      const items = document.querySelectorAll('.product-item');
-      items.forEach(item => {
-        if (category === 'all' || item.dataset.category === category) {
-          item.style.display = 'flex';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    }
-
-    function filterCategory(cat) {
-      const bestsellers = document.getElementById('bestsellers-section');
-      if (bestsellers) {
-        bestsellers.scrollIntoView({ behavior: 'smooth' });
-      }
-      showToast(`Browsing ${cat.toUpperCase()} Collection`);
-    }
-
-    // Live Search
+    // 14. LIVE SEARCH & ENTER KEY SEARCH EXECUTION
     function handleSearchInput(query) {
       const dropdown = document.getElementById('searchDropdown');
       const list = document.getElementById('searchResultsList');
@@ -2008,7 +3214,12 @@
         return;
       }
 
-      const matches = productsDB.filter(p => p.name.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
+      const matches = productsDB.filter(p => 
+        p.name.toLowerCase().includes(q) || 
+        p.tag.toLowerCase().includes(q) || 
+        p.description.toLowerCase().includes(q) ||
+        p.purity.toLowerCase().includes(q)
+      );
 
       if (dropdown && list) {
         if (matches.length === 0) {
@@ -2019,7 +3230,7 @@
               <img src="${prod.image}" alt="${prod.name}" class="w-10 h-12 object-cover rounded bg-surface-container">
               <div>
                 <h5 class="text-xs font-bold text-primary">${prod.name}</h5>
-                <span class="text-[10px] text-secondary font-price-numeral">${formatINR(prod.price)}</span>
+                <span class="text-[10px] text-secondary font-price-numeral">${formatINR(prod.price)} • ${prod.purity.split(' ')[0]}</span>
               </div>
             </div>
           `).join('');
@@ -2029,8 +3240,8 @@
     }
 
     function triggerSearch() {
-      const val = document.getElementById('searchInput').value;
-      handleSearchInput(val);
+      const val = document.getElementById('searchInput').value.trim();
+      executeCatalogSearch(val);
     }
 
     function toggleMobileSearch() {
@@ -2042,28 +3253,59 @@
     }
 
     function triggerMobileSearch() {
-      const val = document.getElementById('mobileSearchInput').value;
-      handleSearchInput(val);
+      const val = document.getElementById('mobileSearchInput').value.trim();
+      executeCatalogSearch(val);
     }
 
-    // Mobile Menu Toggle
+    function executeCatalogSearch(query) {
+      const dropdown = document.getElementById('searchDropdown');
+      if (dropdown) dropdown.classList.add('hidden');
+
+      const bestsellers = document.getElementById('bestsellers-section');
+      if (bestsellers) {
+        bestsellers.scrollIntoView({ behavior: 'smooth' });
+      }
+      renderProducts('all', query);
+      if (query) {
+        showToast(`Showing search results for "${query}"`);
+      }
+    }
+
+    // Search on 'Enter' key
+    document.addEventListener('DOMContentLoaded', () => {
+      const deskSearch = document.getElementById('searchInput');
+      if (deskSearch) {
+        deskSearch.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') triggerSearch();
+        });
+      }
+      const mobSearch = document.getElementById('mobileSearchInput');
+      if (mobSearch) {
+        mobSearch.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') triggerMobileSearch();
+        });
+      }
+    });
+
+    // 15. MOBILE MENU TOGGLE
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.classList.toggle('hidden');
     }
 
-    // Newsletter Privilege Club
+    // 16. NEWSLETTER SUBSCRIPTION
     function subscribeNewsletter() {
-      const email = document.getElementById('newsletterEmail').value;
+      const input = document.getElementById('newsletterEmail');
+      const email = input ? input.value.trim() : '';
       if (email && email.includes('@')) {
-        showToast(`Welcome to the Royal Circle, invite sent!`, 'verified');
-        document.getElementById('newsletterEmail').value = '';
+        showToast(`Welcome to the Royal Circle, privilege invite sent!`, 'verified');
+        input.value = '';
       } else {
         showToast(`Please enter a valid email address`, 'error');
       }
     }
 
-    // Policy & Care Modals
+    // 17. POLICY & CARE MODALS
     function openPolicyModal(title) {
       alert(`${title}\n\nJR. JEWELLERS stands for uncompromised trust since 1952. All pieces undergo 6-stage purity verification and are certified by government-accredited laboratories.`);
     }
@@ -2072,14 +3314,7 @@
       alert("JR Care Insurance:\nComplimentary 100% transit and loss insurance provided on all orders dispatched through armored logistics. Lifetime free cleaning and inspection at any flagship boutique.");
     }
 
-    function openTrackOrderModal() {
-      const tracking = prompt("Enter your 10-digit consignment or booking reference code (e.g. JRJ-9821-DEL):");
-      if (tracking) {
-        alert(`Consignment ${tracking} Status:\nIn transit via Armoured Escort. Expected delivery within 24 hours.`);
-      }
-    }
-
-    // Swarna Nidhi Calculator Logic
+    // 18. SWARNA NIDHI CALCULATOR LOGIC
     (function initGoldCalculator() {
       const slider = document.getElementById('goldSchemeSlider');
       const display = document.getElementById('sliderValueDisplay');
@@ -2105,11 +3340,19 @@
       });
     })();
 
-    // Initialize UI on load
+    // 19. INITIALIZE ON DOM READY
     document.addEventListener('DOMContentLoaded', () => {
+      // Hydrate saved pincode
+      const savedPin = localStorage.getItem('jrj_pincode');
+      if (savedPin) {
+        const headerPin = document.getElementById('headerPincodeDisplay');
+        if (headerPin) headerPin.textContent = `PIN: ${savedPin}`;
+      }
+
+      // Initial renders
+      renderProducts('all');
       renderCart();
       renderWishlist();
-      updateWishlistButtons();
     });
   </script>
 </body>
